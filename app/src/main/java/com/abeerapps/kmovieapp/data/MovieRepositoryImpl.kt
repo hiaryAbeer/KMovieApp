@@ -1,0 +1,62 @@
+package com.abeerapps.kmovieapp.data
+
+import android.util.Log
+import com.abeerapps.kmovieapp.domain.BaseData
+import com.abeerapps.kmovieapp.domain.MovieDetailsModel
+import com.abeerapps.kmovieapp.domain.MovieRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
+
+class MovieRepositoryImpl @Inject constructor(private val movieEndPoint: MovieEndPoint) :
+    MovieRepository {
+    override fun getBaseData(): Flow<BaseData> = flow {
+        try {
+            val response: BaseData = movieEndPoint.getBaseData()
+            emit(response)
+        } catch (e: Exception) {
+
+        }
+    }
+
+    override fun getGenresData(): Flow<BaseData> = flow {
+        try {
+            val response = movieEndPoint.getGenresData()
+            Log.d("getGenresData", response.genresModelList?.size.toString())
+            emit(response)
+        } catch (e: Exception) {
+            Log.d("getGenresData", e.toString())
+
+        }
+    }
+
+    override fun getMoviesByGenresData(genres: Int): Flow<BaseData> = flow {
+        try {
+            val response: BaseData = movieEndPoint.getMoviesByGenresData(genres)
+            emit(response)
+
+        } catch (e: Exception) {
+
+        }
+    }
+
+    override fun getCast(movieId: Long): Flow<BaseData> = flow {
+        try {
+            val response: BaseData = movieEndPoint.getCast(movieId)
+            emit(response)
+
+        } catch (e: Exception) {
+
+        }
+    }
+
+    override fun getMovieDetail(movieId: Long): Flow<MovieDetailsModel> = flow {
+        try {
+            val response: MovieDetailsModel = movieEndPoint.getMovieDetail(movieId)
+            emit(response)
+
+        } catch (e: Exception) {
+
+        }
+    }
+}

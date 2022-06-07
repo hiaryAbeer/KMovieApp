@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/moviesFragment">
+
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.abeerapps.kmovieapp.ui.MoviesFragment"
+        tools:layout="@layout/movies_fragment" >
+        <action
+            android:id="@+id/action_moviesFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/internalMoviesFragment"
+        android:name="com.abeerapps.kmovieapp.ui.InternalMoviesFragment"
+        tools:layout="@layout/internal_movies_fragment" />
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.abeerapps.kmovieapp.ui.MovieDetailsFragment"
+        tools:layout="@layout/movie_details_fragment" />
+</navigation>
