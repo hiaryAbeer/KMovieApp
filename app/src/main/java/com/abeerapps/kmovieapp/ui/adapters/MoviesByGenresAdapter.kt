@@ -1,4 +1,4 @@
-package com.abeerapps.kmovieapp.ui
+package com.abeerapps.kmovieapp.ui.adapters
 
 import android.annotation.SuppressLint
 import android.net.Uri
@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import coil.size.Scale
 import com.abeerapps.kmovieapp.databinding.RawMoviesByGenresBinding
-import com.abeerapps.kmovieapp.domain.MovieModel
+import com.abeerapps.kmovieapp.domain.models.MovieModel
+import com.abeerapps.kmovieapp.ui.MovieViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi

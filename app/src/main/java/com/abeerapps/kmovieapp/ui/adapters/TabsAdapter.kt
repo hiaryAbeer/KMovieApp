@@ -1,8 +1,9 @@
-package com.abeerapps.kmovieapp.ui
+package com.abeerapps.kmovieapp.ui.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.abeerapps.kmovieapp.domain.GenresModel
+import com.abeerapps.kmovieapp.domain.models.GenresModel
+import com.abeerapps.kmovieapp.ui.InternalMoviesFragment
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi

@@ -1,6 +1,6 @@
-package com.abeerapps.kmovieapp.domain
+package com.abeerapps.kmovieapp.domain.models
 
-import androidx.databinding.ObservableBoolean
+import com.abeerapps.kmovieapp.domain.models.GenresModel
 import com.google.gson.annotations.SerializedName
 
 data class MovieDetailsModel(

@@ -1,6 +1,6 @@
-package com.abeerapps.kmovieapp.data
+package com.abeerapps.kmovieapp.data.usecases
 
-import com.abeerapps.kmovieapp.domain.BaseData
+import com.abeerapps.kmovieapp.domain.models.BaseData
 import com.abeerapps.kmovieapp.domain.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

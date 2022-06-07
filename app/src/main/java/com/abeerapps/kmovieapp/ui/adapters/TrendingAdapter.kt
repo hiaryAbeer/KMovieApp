@@ -1,4 +1,4 @@
-package com.abeerapps.kmovieapp.ui
+package com.abeerapps.kmovieapp.ui.adapters
 
 import android.net.Uri
 import android.util.Log
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abeerapps.kmovieapp.databinding.RawTrendingBinding
-import com.abeerapps.kmovieapp.domain.MovieModel
+import com.abeerapps.kmovieapp.domain.models.MovieModel
 
 class TrendingAdapter(val list: List<MovieModel?>) :
     RecyclerView.Adapter<TrendingAdapter.TrendingViewHolder>() {

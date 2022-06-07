@@ -1,4 +1,4 @@
-package com.abeerapps.kmovieapp.data
+package com.abeerapps.kmovieapp.data.usecases
 
 import com.abeerapps.kmovieapp.domain.MovieRepository
 import javax.inject.Inject

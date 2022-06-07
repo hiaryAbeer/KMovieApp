@@ -1,8 +1,8 @@
 package com.abeerapps.kmovieapp.data
 
 import android.util.Log
-import com.abeerapps.kmovieapp.domain.BaseData
-import com.abeerapps.kmovieapp.domain.MovieDetailsModel
+import com.abeerapps.kmovieapp.domain.models.BaseData
+import com.abeerapps.kmovieapp.domain.models.MovieDetailsModel
 import com.abeerapps.kmovieapp.domain.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -1,4 +1,4 @@
-package com.abeerapps.kmovieapp.ui
+package com.abeerapps.kmovieapp.ui.adapters
 
 import android.annotation.SuppressLint
 import android.net.Uri
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abeerapps.kmovieapp.databinding.RawCastBinding
-import com.abeerapps.kmovieapp.domain.CastModel
+import com.abeerapps.kmovieapp.domain.models.CastModel
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi

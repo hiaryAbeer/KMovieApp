@@ -1,4 +1,4 @@
-package com.abeerapps.kmovieapp.domain
+package com.abeerapps.kmovieapp.domain.models
 
 import com.google.gson.annotations.SerializedName
 

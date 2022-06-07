@@ -1,7 +1,6 @@
 package com.abeerapps.kmovieapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.abeerapps.kmovieapp.R
 import com.abeerapps.kmovieapp.databinding.InternalMoviesFragmentBinding
-import com.abeerapps.kmovieapp.domain.MovieModel
+import com.abeerapps.kmovieapp.ui.adapters.MoviesByGenresAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch

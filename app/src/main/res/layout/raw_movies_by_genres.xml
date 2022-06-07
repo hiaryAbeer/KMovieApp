@@ -8,7 +8,7 @@
 
         <variable
             name="model"
-            type="com.abeerapps.kmovieapp.domain.MovieModel" />
+            type="com.abeerapps.kmovieapp.domain.models.MovieModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

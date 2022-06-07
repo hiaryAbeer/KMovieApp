@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abeerapps.kmovieapp.R
 import com.abeerapps.kmovieapp.databinding.MoviesFragmentBinding
+import com.abeerapps.kmovieapp.ui.adapters.TabsAdapter
+import com.abeerapps.kmovieapp.ui.adapters.TrendingAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi

@@ -1,5 +1,7 @@
 package com.abeerapps.kmovieapp.domain
 
+import com.abeerapps.kmovieapp.domain.models.BaseData
+import com.abeerapps.kmovieapp.domain.models.MovieDetailsModel
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {

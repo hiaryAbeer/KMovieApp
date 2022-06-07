@@ -1,7 +1,7 @@
 package com.abeerapps.kmovieapp.data
 
-import com.abeerapps.kmovieapp.domain.BaseData
-import com.abeerapps.kmovieapp.domain.MovieDetailsModel
+import com.abeerapps.kmovieapp.domain.models.BaseData
+import com.abeerapps.kmovieapp.domain.models.MovieDetailsModel
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

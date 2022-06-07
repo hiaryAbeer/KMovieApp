@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abeerapps.kmovieapp.R
 import com.abeerapps.kmovieapp.databinding.MovieDetailsFragmentBinding
+import com.abeerapps.kmovieapp.ui.adapters.CastAdapter
 import com.google.android.material.shape.CornerFamily
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
