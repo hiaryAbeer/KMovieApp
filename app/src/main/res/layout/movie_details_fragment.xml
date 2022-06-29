@@ -26,11 +26,29 @@
         android:textDirection="ltr"
         tools:context=".MovieDetails">
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sflMovieDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/bg_gray_place_holder" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cvMovieDetails"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:scaleType="centerCrop"
+            android:background="@drawable/bg_gray_place_holder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

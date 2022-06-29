@@ -12,6 +12,7 @@ import com.abeerapps.kmovieapp.domain.models.MovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -24,7 +25,7 @@ class MovieViewModel @Inject constructor(
     private val mGetGenresDataUseCase: GetGenresDataUseCase,
     private val mGetMoviesByGenresDataUseCase: GetMoviesByGenresDataUseCase,
     private val mCastUseCase: GetCastUseCase,
-    private val mGetMovieDetailUseCase: GetMovieDetailUseCase
+    private val mGetMovieDetailUseCase: GetMovieDetailUseCase,
 
     ) : ViewModel() {
 
@@ -32,10 +33,10 @@ class MovieViewModel @Inject constructor(
     val mGenresData = MutableStateFlow(BaseData())
     val mMoviesByGenresData = MutableStateFlow(BaseData())
     val mSelectedMovie = MutableStateFlow(MovieModel())
-    private val mActionSender = Channel<MovieActions> {  }
+    private val mActionSender = Channel<MovieActions> { }
     val mAction = mActionSender.receiveAsFlow()
-    val mCastData = MutableStateFlow(listOf(CastModel()))
-    val mMovieDetails = MutableStateFlow(MovieDetailsModel())
+    val mCastData = MutableSharedFlow<List<CastModel>>()
+    val mMovieDetails = MutableSharedFlow<MovieDetailsModel>()
     val mIsMovieHasVideo = ObservableBoolean(true)
 
     init {
@@ -77,11 +78,11 @@ class MovieViewModel @Inject constructor(
         }
     }
 
-     fun getCastData() {
+    fun getCastData() {
         viewModelScope.launch {
             mCastUseCase.getCast(mSelectedMovie.value.id).collect {
                 Log.d("getCastData", it.genresModelList.size.toString())
-                mCastData.value = it.castModels
+                mCastData.emit(it.castModels)
             }
         }
     }
@@ -90,12 +91,12 @@ class MovieViewModel @Inject constructor(
         viewModelScope.launch {
             mGetMovieDetailUseCase.getMovieDetail(mSelectedMovie.value.id).collect {
                 Log.d("getMovieDetails", it.genresModelList?.size.toString())
-                mMovieDetails.value = it
+                mMovieDetails.emit(it)
             }
         }
     }
 
-    sealed class MovieActions{
-        object NavToMovieDetails: MovieActions()
+    sealed class MovieActions {
+        object NavToMovieDetails : MovieActions()
     }
 }

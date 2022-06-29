@@ -42,6 +42,9 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mBinding.sflMovieDetailsFragment.startShimmerAnimation()
+        mBinding.cvMovieDetails.visibility = View.INVISIBLE
+
         mViewModel.getCastData()
         mViewModel.getMovieDetails()
         mBinding.vm = mViewModel
@@ -73,6 +76,9 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     private fun getMovieDetails() {
         lifecycleScope.launch {
             mViewModel.mMovieDetails.collect {
+                mBinding.sflMovieDetailsFragment.stopShimmerAnimation()
+                mBinding.cvMovieDetails.visibility = View.VISIBLE
+
                 mBinding.model = it
 
                 mViewModel.mIsMovieHasVideo.set(it.video)
@@ -91,6 +97,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                         .setBottomRightCorner(CornerFamily.ROUNDED, 28f)
                         .build()
                 mBinding.cvMovieDetails.load(uri)
+                Log.d("uri", "$uri")
+
             }
         }
     }

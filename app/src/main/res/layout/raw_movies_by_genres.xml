@@ -31,6 +31,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/raw_movies_movie"
                 android:layout_width="match_parent"
+                android:background="@drawable/bg_gray_place_holder"
                 android:scaleType="centerCrop"
                 android:layout_height="182dp" />
 
