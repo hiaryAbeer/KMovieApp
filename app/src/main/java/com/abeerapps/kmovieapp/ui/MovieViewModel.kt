@@ -4,11 +4,16 @@ import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.abeerapps.kmovieapp.domain.usecases.*
 import com.abeerapps.kmovieapp.domain.models.BaseData
 import com.abeerapps.kmovieapp.domain.models.CastModel
+import com.abeerapps.kmovieapp.domain.models.GenresRequestModel
 import com.abeerapps.kmovieapp.domain.models.MovieDetailsModel
 import com.abeerapps.kmovieapp.domain.models.MovieModel
+import com.abeerapps.kmovieapp.domain.usecases.GetBaseDataUseCase
+import com.abeerapps.kmovieapp.domain.usecases.GetCastUseCase
+import com.abeerapps.kmovieapp.domain.usecases.GetGenresDataUseCase
+import com.abeerapps.kmovieapp.domain.usecases.GetMovieDetailUseCase
+import com.abeerapps.kmovieapp.domain.usecases.GetMoviesByGenresDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
@@ -38,6 +43,7 @@ class MovieViewModel @Inject constructor(
     val mCastData = MutableSharedFlow<List<CastModel>>()
     val mMovieDetails = MutableSharedFlow<MovieDetailsModel>()
     val mIsMovieHasVideo = ObservableBoolean(true)
+    val model = GenresRequestModel()
 
     init {
         getBaseData()
@@ -65,7 +71,8 @@ class MovieViewModel @Inject constructor(
 
     fun getMovieByGenresData(genres: Int) {
         viewModelScope.launch {
-            mGetMoviesByGenresDataUseCase.getMoviesByGenresData(genres).collect {
+            model.genres = genres
+            mGetMoviesByGenresDataUseCase.getMoviesByGenresData(model).collect {
                 mMoviesByGenresData.value = it
             }
         }

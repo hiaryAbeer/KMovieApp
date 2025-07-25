@@ -1,9 +1,10 @@
 package com.abeerapps.kmovieapp.data
 
 import android.util.Log
-import com.abeerapps.kmovieapp.domain.models.BaseData
-import com.abeerapps.kmovieapp.domain.models.MovieDetailsModel
 import com.abeerapps.kmovieapp.domain.MovieRepository
+import com.abeerapps.kmovieapp.domain.models.BaseData
+import com.abeerapps.kmovieapp.domain.models.GenresRequestModel
+import com.abeerapps.kmovieapp.domain.models.MovieDetailsModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -30,9 +31,9 @@ class MovieRepositoryImpl @Inject constructor(private val movieEndPoint: MovieEn
         }
     }
 
-    override fun getMoviesByGenresData(genres: Int): Flow<BaseData> = flow {
+    override fun getMoviesByGenresData(model: GenresRequestModel): Flow<BaseData> = flow {
         try {
-            val response: BaseData = movieEndPoint.getMoviesByGenresData(genres)
+            val response: BaseData = movieEndPoint.getMoviesByGenresData(model.genres, model.page)
             emit(response)
 
         } catch (e: Exception) {
