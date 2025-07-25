@@ -5,7 +5,8 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
+
         <variable
             name="type"
             type="String" />
@@ -37,9 +38,9 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:scaleType="centerCrop"
-                android:background="@drawable/bg_gray_place_holder" />
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_gray_place_holder"
+                android:scaleType="centerCrop" />
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -47,8 +48,8 @@
             android:id="@+id/cvMovieDetails"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:scaleType="centerCrop"
             android:background="@drawable/bg_gray_place_holder"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,10 +81,10 @@
             android:id="@+id/details_play_video"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:visibility="@{vm.MIsMovieHasVideo ? View.VISIBLE : View.INVISIBLE}"
             android:layout_marginEnd="44dp"
             android:layout_marginRight="44dp"
             android:background="@drawable/circle_raw"
+            android:visibility="@{vm.MIsMovieHasVideo ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/cvMovieDetails"
             app:layout_constraintEnd_toEndOf="@+id/cvMovieDetails"
             app:layout_constraintTop_toBottomOf="@+id/cvMovieDetails">
@@ -124,7 +125,8 @@
                     android:layout_marginTop="30dp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="@{model.name}"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    tools:text="How to Train Your Dragon" />
 
                 <TextView
                     android:id="@+id/details_type"
@@ -133,7 +135,8 @@
                     android:layout_marginTop="1dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@{type}"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="Family" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -144,48 +147,52 @@
                         android:id="@+id/details_rate"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginTop="1dp"
                         android:background="@drawable/circle_raw_rate"
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
                         android:text="@{String.valueOf(model.vote_average)}"
                         android:textColor="@color/white"
-                        android:textSize="9sp" />
+                        android:textSize="9sp"
+                        tools:text="8.091" />
 
                     <TextView
                         android:id="@+id/details_seen"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="9dp"
                         android:layout_marginLeft="9dp"
+                        android:gravity="center"
                         android:fontFamily="@font/poppins_regular"
                         android:text="@{String.valueOf(model.popularity)}"
-                        android:textSize="8sp" />
+                        android:textSize="8sp"
+                        tools:text="904.7178" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/details_details"
                     android:layout_width="match_parent"
-                    android:layout_height="91dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@{model.overview}"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="On the rugged isle of Berk, where Vikings and dragons" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="23dp"
                     android:layout_marginTop="26dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Star Cast"
                     android:textColor="#262F50"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="Star Cast" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView_cast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginVertical="16dp"
+                    tools:listitem="@layout/raw_cast" />
 
             </LinearLayout>
 

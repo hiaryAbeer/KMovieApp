@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layoutDirection="ltr"
-        android:textDirection="ltr"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutDirection="ltr"
+        android:textDirection="ltr"
         tools:context=".MoviesActivity">
 
         <View
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Movies"
+            android:text="@string/app_name"
             android:textColor="@color/text_color_a"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,21 +38,21 @@
             tools:ignore="MissingConstraints" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            android:id="@+id/search"
+            android:layout_width="@dimen/_24dp"
+            android:layout_height="@dimen/_24dp"
+            android:layout_marginTop="@dimen/_24dp"
+            android:layout_marginEnd="@dimen/_16dp"
             android:background="@drawable/search_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/details_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="@dimen/_24dp"
+            android:layout_height="@dimen/_24dp"
+            android:layout_marginStart="@dimen/_16dp"
+            android:layout_marginTop="@dimen/_24dp"
             android:background="@drawable/menu_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -61,9 +61,8 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="73dp"
+            android:layout_marginStart="@dimen/_24dp"
+            android:layout_marginTop="56dp"
             android:layout_marginBottom="81dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Trending"
@@ -81,21 +80,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="6dp"
-            android:layout_marginEnd="10dp"
+            android:clipToPadding="false"
+            android:paddingEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             app:layout_editor_absoluteX="20dp"
-            app:layout_editor_absoluteY="162dp" />
+            app:layout_editor_absoluteY="162dp"
+            tools:itemCount="1"
+            tools:listitem="@layout/raw_trending" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
-            app:tabTextAppearance="@style/tab_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView_trending"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:tabTextAppearance="@style/tab_text" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/movies_genres_vp"

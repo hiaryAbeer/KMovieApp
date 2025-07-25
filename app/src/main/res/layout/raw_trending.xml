@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.abeerapps.kmovieapp.ui.MovieViewModel" />
+
+        <variable
+            name="model"
+            type="com.abeerapps.kmovieapp.domain.models.MovieModel" />
+    </data>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:onClick="@{() -> vm.selectMovie(model)}">
 
         <androidx.cardview.widget.CardView
             android:layout_width="200dp"

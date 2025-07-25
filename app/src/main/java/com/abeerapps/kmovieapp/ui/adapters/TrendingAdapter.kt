@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abeerapps.kmovieapp.databinding.RawTrendingBinding
 import com.abeerapps.kmovieapp.domain.models.MovieModel
+import com.abeerapps.kmovieapp.ui.MovieViewModel
+import kotlinx.coroutines.InternalCoroutinesApi
 
-class TrendingAdapter(val list: List<MovieModel?>) :
+@InternalCoroutinesApi
+class TrendingAdapter(val list: List<MovieModel?>, val viewModel: MovieViewModel) :
     RecyclerView.Adapter<TrendingAdapter.TrendingViewHolder>() {
 
     private val imageURL = "https://image.tmdb.org/t/p/w500"
@@ -19,6 +22,8 @@ class TrendingAdapter(val list: List<MovieModel?>) :
 
         fun bind(position: Int) {
             try {
+                binding.model = list[position]
+                binding.vm = viewModel
                 val uri = Uri.parse(imageURL + list[position]!!.posterPath)
                 binding.rawTrendingImage.load(uri)
             } catch (e: Exception) {

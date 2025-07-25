@@ -62,7 +62,7 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         lifecycleScope.launch {
             mViewModel.mBaseData.collect {
-                mTrendingAdapter = TrendingAdapter(it.list)
+                mTrendingAdapter = TrendingAdapter(it.list, viewModel = mViewModel)
                 mBinding.recyclerViewTrending.adapter = mTrendingAdapter
             }
         }
