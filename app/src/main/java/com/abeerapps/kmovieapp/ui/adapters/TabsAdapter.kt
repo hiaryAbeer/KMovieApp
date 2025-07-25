@@ -14,8 +14,8 @@ class TabsAdapter(fragment: Fragment, val list: List<GenresModel>) :
 
     override fun createFragment(position: Int): Fragment {
         return if (list.isEmpty())
-            InternalMoviesFragment(28)
+            InternalMoviesFragment.newInstance(28)
         else
-            InternalMoviesFragment(list[position].id)
+            InternalMoviesFragment.newInstance(list[position].id)
     }
 }

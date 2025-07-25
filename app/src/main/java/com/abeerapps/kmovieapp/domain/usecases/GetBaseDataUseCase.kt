@@ -1,4 +1,4 @@
-package com.abeerapps.kmovieapp.data.usecases
+package com.abeerapps.kmovieapp.domain.usecases
 
 import com.abeerapps.kmovieapp.domain.models.BaseData
 import com.abeerapps.kmovieapp.domain.MovieRepository
@@ -10,4 +10,4 @@ class GetBaseDataUseCase @Inject constructor(private val movieRepository: MovieR
      fun getBaseData(): Flow<BaseData> {
         return movieRepository.getBaseData()
     }
-}
+} 

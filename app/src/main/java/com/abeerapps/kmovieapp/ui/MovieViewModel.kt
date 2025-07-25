@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.abeerapps.kmovieapp.data.usecases.*
+import com.abeerapps.kmovieapp.domain.usecases.*
 import com.abeerapps.kmovieapp.domain.models.BaseData
 import com.abeerapps.kmovieapp.domain.models.CastModel
 import com.abeerapps.kmovieapp.domain.models.MovieDetailsModel
