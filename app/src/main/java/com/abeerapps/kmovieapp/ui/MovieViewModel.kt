@@ -37,7 +37,7 @@ class MovieViewModel @Inject constructor(
     val mBaseData = MutableStateFlow(BaseData())
     val mGenresData = MutableStateFlow(BaseData())
     val mMoviesByGenresData = MutableStateFlow(BaseData())
-    val mSelectedMovie = MutableStateFlow(MovieModel())
+    private val mSelectedMovie = MutableStateFlow(MovieModel())
     private val mActionSender = Channel<MovieActions> { }
     val mAction = mActionSender.receiveAsFlow()
     val mCastData = MutableSharedFlow<List<CastModel>>()
@@ -53,7 +53,7 @@ class MovieViewModel @Inject constructor(
     private fun getBaseData() {
         viewModelScope.launch {
             mGetBaseDataUseCase.getBaseData().collect {
-                Log.d("getBaseData", it.list?.size.toString())
+                Log.d("getBaseData", it.list.size.toString())
                 mBaseData.value = it
             }
 
@@ -63,7 +63,7 @@ class MovieViewModel @Inject constructor(
     private fun getGenresData() {
         viewModelScope.launch {
             mGetGenresDataUseCase.getGenresData().collect {
-                Log.d("getGenresData", it.genresModelList?.size.toString())
+                Log.d("getGenresData", it.genresModelList.size.toString())
                 mGenresData.value = it
             }
         }
@@ -104,6 +104,6 @@ class MovieViewModel @Inject constructor(
     }
 
     sealed class MovieActions {
-        object NavToMovieDetails : MovieActions()
+        data object NavToMovieDetails : MovieActions()
     }
 }

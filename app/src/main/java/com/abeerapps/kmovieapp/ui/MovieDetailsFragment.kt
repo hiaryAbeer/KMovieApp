@@ -28,7 +28,10 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     private lateinit var mBinding: MovieDetailsFragmentBinding
     private val mViewModel: MovieViewModel by hiltNavGraphViewModels(R.id.main_nav_graph)
     private lateinit var mAdapter: CastAdapter
-    private val imageURL = "https://image.tmdb.org/t/p/w500"
+
+    companion object {
+        val imageURL = "https://image.tmdb.org/t/p/w500"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

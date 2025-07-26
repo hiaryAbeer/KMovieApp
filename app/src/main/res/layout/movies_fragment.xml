@@ -65,7 +65,7 @@
             android:layout_marginTop="56dp"
             android:layout_marginBottom="81dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Trending"
+            android:text="@string/trending"
             android:textColor="@color/text_color_a"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
