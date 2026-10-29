@@ -3,74 +3,87 @@ package com.abeerapps.kmovieapp.ui.favorites
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.abeerapps.kmovieapp.R
+import androidx.paging.CombinedLoadStates
 import com.abeerapps.kmovieapp.databinding.FragmentFavoritesBinding
+import com.abeerapps.kmovieapp.domain.model.Session
 import com.abeerapps.kmovieapp.ui.auth.SignInViewModel
 import com.abeerapps.kmovieapp.ui.auth.showSignOutConfirmation
+import com.abeerapps.kmovieapp.ui.common.BaseFragment
 import com.abeerapps.kmovieapp.ui.common.MovieGridAdapter
 import com.abeerapps.kmovieapp.ui.common.applySystemBarsPadding
 import com.abeerapps.kmovieapp.ui.common.collectLatestWithViewLifecycle
 import com.abeerapps.kmovieapp.ui.common.collectWithViewLifecycle
-import com.abeerapps.kmovieapp.ui.common.messageRes
 import com.abeerapps.kmovieapp.ui.common.navigateToMovieDetails
+import com.abeerapps.kmovieapp.ui.common.render
+import com.abeerapps.kmovieapp.ui.common.setOnRetryClickListener
 import com.abeerapps.kmovieapp.ui.common.setUpPagedMovieGrid
 import com.abeerapps.kmovieapp.ui.common.toPagedListState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 
 @AndroidEntryPoint
-class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
+class FavoritesFragment :
+    BaseFragment<FragmentFavoritesBinding>(FragmentFavoritesBinding::inflate) {
 
     private val viewModel: FavoritesViewModel by viewModels()
     private val signInViewModel: SignInViewModel by activityViewModels()
 
-    private var _binding: FragmentFavoritesBinding? = null
-    private val binding get() = _binding!!
+    private val movieAdapter = MovieGridAdapter { navigateToMovieDetails(it.id) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentFavoritesBinding.bind(view)
         binding.topBar.applySystemBarsPadding(top = true)
         binding.movieList.applySystemBarsPadding(bottom = true)
 
-        val adapter = MovieGridAdapter { navigateToMovieDetails(it.id) }
-        binding.movieList.setUpPagedMovieGrid(adapter)
-        binding.backButton.setOnClickListener { findNavController().navigateUp() }
-        binding.signOutButton.setOnClickListener {
+        binding.movieList.setUpPagedMovieGrid(movieAdapter)
+        setUpClickListeners()
+        observeFavorites()
+        observeSignIn()
+    }
+
+    private fun setUpClickListeners() = with(binding) {
+        backButton.setOnClickListener { findNavController().navigateUp() }
+        signInButton.setOnClickListener { signInViewModel.startSignIn() }
+        signOutButton.setOnClickListener {
             requireContext().showSignOutConfirmation(signInViewModel::signOut)
         }
-        binding.signInButton.setOnClickListener { signInViewModel.startSignIn() }
-        binding.errorView.retryButton.setOnClickListener { adapter.retry() }
+        errorView.setOnRetryClickListener(movieAdapter::retry)
+    }
 
-        collectLatestWithViewLifecycle(viewModel.favorites, adapter::submitData)
+    private fun observeFavorites() {
+        collectLatestWithViewLifecycle(viewModel.favorites, movieAdapter::submitData)
+    }
+
+    private fun observeSignIn() {
         collectWithViewLifecycle(signInViewModel.isSigningIn) { signingIn ->
             binding.signInButton.isEnabled = !signingIn
         }
-
-        val sessionAndLoadStates = signInViewModel.session.combine(adapter.loadStateFlow, ::Pair)
+        val sessionAndLoadStates =
+            signInViewModel.session.combine(movieAdapter.loadStateFlow, ::Pair)
         collectWithViewLifecycle(sessionAndLoadStates) { (session, loadStates) ->
-            val isSignedIn = session != null
-            val state = loadStates.toPagedListState(adapter.itemCount)
-
-            binding.subtitle.isVisible = isSignedIn
-            binding.subtitle.text = session?.username
-            binding.signOutButton.isVisible = isSignedIn
-            binding.signedOutGroup.isVisible = !isSignedIn
-            binding.movieList.isVisible = isSignedIn
-            binding.progressIndicator.isVisible = isSignedIn && state.isLoading
-            binding.emptyMessage.isVisible = isSignedIn && state.isEmpty
-            binding.errorView.root.isVisible = isSignedIn && state.error != null
-            state.error?.let { binding.errorView.errorMessage.setText(it.messageRes()) }
+            render(session, loadStates)
         }
+    }
+
+    private fun render(session: Session?, loadStates: CombinedLoadStates) = with(binding) {
+        val isSignedIn = session != null
+        val state = loadStates.toPagedListState(movieAdapter.itemCount)
+
+        subtitle.isVisible = isSignedIn
+        subtitle.text = session?.username
+        signOutButton.isVisible = isSignedIn
+        signedOutGroup.isVisible = !isSignedIn
+        movieList.isVisible = isSignedIn
+        progressIndicator.isVisible = isSignedIn && state.isLoading
+        emptyMessage.isVisible = isSignedIn && state.isEmpty
+        errorView.render(state.error.takeIf { isSignedIn })
     }
 
     override fun onDestroyView() {
         binding.movieList.adapter = null
-        _binding = null
         super.onDestroyView()
     }
 }
