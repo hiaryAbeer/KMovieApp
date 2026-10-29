@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.abeerapps.kmovieapp.R
 import com.abeerapps.kmovieapp.databinding.FragmentHomeBinding
+import com.abeerapps.kmovieapp.ui.DrawerHost
 import com.abeerapps.kmovieapp.ui.common.applySystemBarsPadding
 import com.abeerapps.kmovieapp.ui.common.collectWithViewLifecycle
 import com.abeerapps.kmovieapp.ui.common.messageRes
@@ -36,11 +37,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         // Tied to the view lifecycle so the pager doesn't leak when Home is on the back stack.
         val pagerAdapter = GenrePagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
         binding.genrePager.adapter = pagerAdapter
-        tabLayoutMediator = TabLayoutMediator(binding.genreTabs, binding.genrePager) { tab, position ->
-            tab.text = pagerAdapter.genreAt(position).name
-        }.also { it.attach() }
+        tabLayoutMediator =
+            TabLayoutMediator(binding.genreTabs, binding.genrePager) { tab, position ->
+                tab.text = pagerAdapter.genreAt(position).name
+            }.also { it.attach() }
 
         binding.errorView.retryButton.setOnClickListener { viewModel.retry() }
+        binding.menuButton.setOnClickListener { (activity as? DrawerHost)?.openDrawer() }
         binding.searchButton.setOnClickListener {
             navigateSafely(HomeFragmentDirections.actionHomeToSearch())
         }

@@ -41,6 +41,22 @@
     <string name="sign_out_message">Your favorites stay saved in your TMDB account.</string>
     <string name="signed_out">Signed out</string>
 
+    <!-- Drawer, theme & about -->
+    <string name="theme">Theme</string>
+    <string name="theme_system">System default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="about">About</string>
+    <string name="version_format">Version %1$s (%2$d)</string>
+    <string name="signed_out_status">Not signed in</string>
+    <string name="about_description">Browse trending movies, explore genres, search the full TMDB catalog and keep your favorites in sync with your TMDB account.</string>
+    <string name="about_data_title">Data source</string>
+    <string name="tmdb_attribution">This product uses the TMDB API but is not endorsed or certified by TMDB.</string>
+    <string name="visit_tmdb">Visit themoviedb.org</string>
+    <string name="about_built_with_title">Built with</string>
+    <string name="about_built_with">Kotlin · Coroutines &amp; Flow · Hilt · Retrofit · kotlinx.serialization · Paging 3 · Navigation · DataStore · Coil · Material 3</string>
+
+    <string name="cd_open_menu">Open menu</string>
     <string name="cd_back">Back</string>
     <string name="cd_play_trailer">Play trailer</string>
     <string name="cd_movie_poster">Poster of %s</string>

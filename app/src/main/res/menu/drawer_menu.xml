@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/drawerMainGroup">
+        <item
+            android:id="@+id/drawerTheme"
+            android:icon="@drawable/ic_theme"
+            android:title="@string/theme" />
+        <item
+            android:id="@+id/drawerAbout"
+            android:icon="@drawable/ic_info"
+            android:title="@string/about" />
+        <item
+            android:id="@+id/drawerSignOut"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/sign_out"
+            android:visible="false" />
+    </group>
+
+    <!-- Separate group so NavigationView draws a divider above it. -->
+    <group android:id="@+id/drawerInfoGroup">
+        <item
+            android:id="@+id/drawerVersion"
+            android:enabled="false"
+            android:icon="@drawable/ic_version"
+            android:title="@string/version_format" />
+    </group>
+</menu>

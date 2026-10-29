@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.abeerapps.kmovieapp.R
 import com.abeerapps.kmovieapp.databinding.FragmentFavoritesBinding
 import com.abeerapps.kmovieapp.ui.auth.SignInViewModel
+import com.abeerapps.kmovieapp.ui.auth.showSignOutConfirmation
 import com.abeerapps.kmovieapp.ui.common.MovieGridAdapter
 import com.abeerapps.kmovieapp.ui.common.applySystemBarsPadding
 import com.abeerapps.kmovieapp.ui.common.collectLatestWithViewLifecycle
@@ -18,7 +19,6 @@ import com.abeerapps.kmovieapp.ui.common.messageRes
 import com.abeerapps.kmovieapp.ui.common.navigateToMovieDetails
 import com.abeerapps.kmovieapp.ui.common.setUpPagedMovieGrid
 import com.abeerapps.kmovieapp.ui.common.toPagedListState
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 
@@ -40,12 +40,16 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         val adapter = MovieGridAdapter { navigateToMovieDetails(it.id) }
         binding.movieList.setUpPagedMovieGrid(adapter)
         binding.backButton.setOnClickListener { findNavController().navigateUp() }
-        binding.signOutButton.setOnClickListener { confirmSignOut() }
+        binding.signOutButton.setOnClickListener {
+            requireContext().showSignOutConfirmation(signInViewModel::signOut)
+        }
         binding.signInButton.setOnClickListener { signInViewModel.startSignIn() }
         binding.errorView.retryButton.setOnClickListener { adapter.retry() }
 
         collectLatestWithViewLifecycle(viewModel.favorites, adapter::submitData)
-        collectWithViewLifecycle(signInViewModel.isSigningIn) { binding.signInButton.isEnabled = !it }
+        collectWithViewLifecycle(signInViewModel.isSigningIn) { signingIn ->
+            binding.signInButton.isEnabled = !signingIn
+        }
 
         val sessionAndLoadStates = signInViewModel.session.combine(adapter.loadStateFlow, ::Pair)
         collectWithViewLifecycle(sessionAndLoadStates) { (session, loadStates) ->
@@ -62,15 +66,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             binding.errorView.root.isVisible = isSignedIn && state.error != null
             state.error?.let { binding.errorView.errorMessage.setText(it.messageRes()) }
         }
-    }
-
-    private fun confirmSignOut() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.sign_out_title)
-            .setMessage(R.string.sign_out_message)
-            .setPositiveButton(R.string.sign_out) { _, _ -> signInViewModel.signOut() }
-            .setNegativeButton(android.R.string.cancel, null)
-            .show()
     }
 
     override fun onDestroyView() {

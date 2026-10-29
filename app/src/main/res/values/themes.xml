@@ -1,13 +1,13 @@
 <resources>
 
-    <!-- Light only for now; a proper dark palette comes with the UI pass. -->
-    <style name="Theme.KMovieApp" parent="Theme.Material3.Light.NoActionBar">
+    <!-- Day/night: neutral colors flip via values-night/colors.xml. -->
+    <style name="Theme.KMovieApp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/brand_yellow</item>
-        <item name="colorOnPrimary">@color/text_color_a</item>
+        <item name="colorOnPrimary">@color/on_brand</item>
         <item name="colorPrimaryContainer">@color/brand_yellow_light</item>
-        <item name="colorOnPrimaryContainer">@color/text_color_a</item>
+        <item name="colorOnPrimaryContainer">@color/on_brand</item>
         <item name="colorSecondary">@color/text_color_a</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnSecondary">@color/surface</item>
         <item name="colorSurface">@color/surface</item>
         <item name="colorOnSurface">@color/text_color_a</item>
         <item name="android:colorBackground">@color/surface</item>

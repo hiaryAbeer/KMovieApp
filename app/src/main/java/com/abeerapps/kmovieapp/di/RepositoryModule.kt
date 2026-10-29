@@ -3,9 +3,11 @@ package com.abeerapps.kmovieapp.di
 import com.abeerapps.kmovieapp.data.repository.AuthRepositoryImpl
 import com.abeerapps.kmovieapp.data.repository.FavoritesRepositoryImpl
 import com.abeerapps.kmovieapp.data.repository.MovieRepositoryImpl
+import com.abeerapps.kmovieapp.data.repository.SettingsRepositoryImpl
 import com.abeerapps.kmovieapp.domain.repository.AuthRepository
 import com.abeerapps.kmovieapp.domain.repository.FavoritesRepository
 import com.abeerapps.kmovieapp.domain.repository.MovieRepository
+import com.abeerapps.kmovieapp.domain.repository.SettingsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -27,4 +29,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindFavoritesRepository(impl: FavoritesRepositoryImpl): FavoritesRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSettingsRepository(impl: SettingsRepositoryImpl): SettingsRepository
 }
