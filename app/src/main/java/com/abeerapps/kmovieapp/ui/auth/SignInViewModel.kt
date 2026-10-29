@@ -5,7 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.abeerapps.kmovieapp.domain.model.DataError
 import com.abeerapps.kmovieapp.domain.model.Outcome
 import com.abeerapps.kmovieapp.domain.model.Session
-import com.abeerapps.kmovieapp.domain.repository.AuthRepository
+import com.abeerapps.kmovieapp.domain.usecase.CompleteSignInUseCase
+import com.abeerapps.kmovieapp.domain.usecase.ObserveSessionUseCase
+import com.abeerapps.kmovieapp.domain.usecase.SignOutUseCase
+import com.abeerapps.kmovieapp.domain.usecase.StartSignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -24,10 +27,13 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
+    observeSession: ObserveSessionUseCase,
+    private val startSignInUseCase: StartSignInUseCase,
+    private val completeSignIn: CompleteSignInUseCase,
+    private val signOutUseCase: SignOutUseCase,
 ) : ViewModel() {
 
-    val session: StateFlow<Session?> = authRepository.session
+    val session: StateFlow<Session?> = observeSession()
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     private val _isSigningIn = MutableStateFlow(false)
@@ -40,7 +46,7 @@ class SignInViewModel @Inject constructor(
         if (_isSigningIn.value) return
         viewModelScope.launch {
             _isSigningIn.value = true
-            when (val result = authRepository.createSignInUrl()) {
+            when (val result = startSignInUseCase()) {
                 is Outcome.Success -> _events.send(SignInEvent.OpenApprovalPage(result.data))
                 is Outcome.Failure -> _events.send(SignInEvent.Failed(result.error))
             }
@@ -56,7 +62,7 @@ class SignInViewModel @Inject constructor(
         }
         viewModelScope.launch {
             _isSigningIn.value = true
-            val event = when (val result = authRepository.completeSignIn(requestToken)) {
+            val event = when (val result = completeSignIn(requestToken)) {
                 is Outcome.Success -> SignInEvent.SignedIn(result.data.username)
                 is Outcome.Failure -> SignInEvent.Failed(result.error)
             }
@@ -67,7 +73,7 @@ class SignInViewModel @Inject constructor(
 
     fun signOut() {
         viewModelScope.launch {
-            authRepository.signOut()
+            signOutUseCase()
             _events.send(SignInEvent.SignedOut)
         }
     }

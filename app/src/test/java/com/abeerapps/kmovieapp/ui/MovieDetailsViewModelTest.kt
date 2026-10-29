@@ -8,6 +8,9 @@ import com.abeerapps.kmovieapp.domain.model.Session
 import com.abeerapps.kmovieapp.domain.repository.AuthRepository
 import com.abeerapps.kmovieapp.domain.repository.FavoritesRepository
 import com.abeerapps.kmovieapp.domain.usecase.GetMovieDetailsUseCase
+import com.abeerapps.kmovieapp.domain.usecase.IsFavoriteUseCase
+import com.abeerapps.kmovieapp.domain.usecase.ObserveSessionUseCase
+import com.abeerapps.kmovieapp.domain.usecase.SetFavoriteUseCase
 import com.abeerapps.kmovieapp.testing.MainDispatcherRule
 import com.abeerapps.kmovieapp.testing.movieDetails
 import com.abeerapps.kmovieapp.ui.details.FavoriteUiState
@@ -33,7 +36,9 @@ class MovieDetailsViewModelTest {
     private val session = MutableStateFlow<Session?>(null)
     private val getMovieDetails = mockk<GetMovieDetailsUseCase>()
     private val favoritesRepository = mockk<FavoritesRepository>()
-    private val authRepository = mockk<AuthRepository> { every { session } returns this@MovieDetailsViewModelTest.session }
+    private val authRepository = mockk<AuthRepository> {
+        every { session } returns this@MovieDetailsViewModelTest.session
+    }
 
     @Before
     fun setUp() {
@@ -45,8 +50,9 @@ class MovieDetailsViewModelTest {
     private fun createViewModel() = MovieDetailsViewModel(
         SavedStateHandle(mapOf("movieId" to MOVIE_ID)),
         getMovieDetails,
-        favoritesRepository,
-        authRepository,
+        IsFavoriteUseCase(favoritesRepository),
+        SetFavoriteUseCase(favoritesRepository),
+        ObserveSessionUseCase(authRepository),
     )
 
     @Test

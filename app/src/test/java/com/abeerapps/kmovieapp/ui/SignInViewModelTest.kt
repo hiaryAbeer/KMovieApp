@@ -5,6 +5,10 @@ import com.abeerapps.kmovieapp.domain.model.DataError
 import com.abeerapps.kmovieapp.domain.model.Outcome
 import com.abeerapps.kmovieapp.domain.model.Session
 import com.abeerapps.kmovieapp.domain.repository.AuthRepository
+import com.abeerapps.kmovieapp.domain.usecase.CompleteSignInUseCase
+import com.abeerapps.kmovieapp.domain.usecase.ObserveSessionUseCase
+import com.abeerapps.kmovieapp.domain.usecase.SignOutUseCase
+import com.abeerapps.kmovieapp.domain.usecase.StartSignInUseCase
 import com.abeerapps.kmovieapp.testing.MainDispatcherRule
 import com.abeerapps.kmovieapp.ui.auth.SignInEvent
 import com.abeerapps.kmovieapp.ui.auth.SignInViewModel
@@ -24,7 +28,12 @@ class SignInViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val authRepository = mockk<AuthRepository> { every { session } returns flowOf(null) }
-    private val viewModel = SignInViewModel(authRepository)
+    private val viewModel = SignInViewModel(
+        ObserveSessionUseCase(authRepository),
+        StartSignInUseCase(authRepository),
+        CompleteSignInUseCase(authRepository),
+        SignOutUseCase(authRepository),
+    )
 
     @Test
     fun `start opens TMDB's approval page`() = runTest {

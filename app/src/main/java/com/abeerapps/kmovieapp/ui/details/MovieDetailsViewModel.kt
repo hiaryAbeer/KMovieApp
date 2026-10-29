@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.abeerapps.kmovieapp.domain.model.DataError
 import com.abeerapps.kmovieapp.domain.model.Outcome
-import com.abeerapps.kmovieapp.domain.repository.AuthRepository
-import com.abeerapps.kmovieapp.domain.repository.FavoritesRepository
+import com.abeerapps.kmovieapp.domain.model.getOrNull
 import com.abeerapps.kmovieapp.domain.usecase.GetMovieDetailsUseCase
+import com.abeerapps.kmovieapp.domain.usecase.IsFavoriteUseCase
+import com.abeerapps.kmovieapp.domain.usecase.ObserveSessionUseCase
+import com.abeerapps.kmovieapp.domain.usecase.SetFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -25,8 +27,9 @@ import javax.inject.Inject
 class MovieDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getMovieDetails: GetMovieDetailsUseCase,
-    private val favoritesRepository: FavoritesRepository,
-    authRepository: AuthRepository,
+    private val isFavorite: IsFavoriteUseCase,
+    private val setFavorite: SetFavoriteUseCase,
+    observeSession: ObserveSessionUseCase,
 ) : ViewModel() {
 
     private val movieId = MovieDetailsFragmentArgs.fromSavedStateHandle(savedStateHandle).movieId
@@ -48,7 +51,7 @@ class MovieDetailsViewModel @Inject constructor(
     init {
         load()
         viewModelScope.launch {
-            authRepository.session.collectLatest { session ->
+            observeSession().collectLatest { session ->
                 if (session == null) {
                     _favoriteState.value = FavoriteUiState()
                 } else {
@@ -68,25 +71,25 @@ class MovieDetailsViewModel @Inject constructor(
             _events.trySend(MovieDetailsEvent.RequireSignIn)
             return
         }
-        setFavorite(!current.isFavorite)
+        updateFavorite(!current.isFavorite)
     }
 
     private suspend fun refreshFavoriteStatus() {
         _favoriteState.value = FavoriteUiState(isSignedIn = true, isUpdating = true)
-        val isFavorite = (favoritesRepository.isFavorite(movieId) as? Outcome.Success)?.data ?: false
-        _favoriteState.value = FavoriteUiState(isSignedIn = true, isFavorite = isFavorite)
+        val favorite = isFavorite(movieId).getOrNull() ?: false
+        _favoriteState.value = FavoriteUiState(isSignedIn = true, isFavorite = favorite)
 
         if (favoriteAfterSignIn) {
             favoriteAfterSignIn = false
-            if (!isFavorite) setFavorite(true)
+            if (!favorite) updateFavorite(true)
         }
     }
 
     /** Updates the heart immediately and rolls back if TMDB rejects the change. */
-    private fun setFavorite(favorite: Boolean) {
+    private fun updateFavorite(favorite: Boolean) {
         _favoriteState.update { it.copy(isFavorite = favorite, isUpdating = true) }
         viewModelScope.launch {
-            when (val result = favoritesRepository.setFavorite(movieId, favorite)) {
+            when (val result = setFavorite(movieId, favorite)) {
                 is Outcome.Success -> _favoriteState.update { it.copy(isUpdating = false) }
                 is Outcome.Failure -> {
                     _favoriteState.update { it.copy(isFavorite = !favorite, isUpdating = false) }
