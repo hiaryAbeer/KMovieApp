@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">KMovieApp</string>
     <string name="trending">Trending</string>
+    <string name="cast">Cast</string>
+    <string name="retry">Retry</string>
+    <string name="no_overview">No overview available.</string>
+    <string name="empty_movies">No movies found in this genre.</string>
+
+    <string name="rating_format">%.1f</string>
+    <string name="runtime_format">%1$dh %2$02dm</string>
+    <plurals name="vote_count">
+        <item quantity="one">%,d vote</item>
+        <item quantity="other">%,d votes</item>
+    </plurals>
+
+    <string name="error_network">No internet connection. Check your connection and try again.</string>
+    <string name="error_server">The movie service is having trouble. Please try again later.</string>
+    <string name="error_unknown">Something went wrong. Please try again.</string>
+    <string name="error_no_app_to_open_link">No app found to play the trailer.</string>
+
+    <string name="cd_back">Back</string>
+    <string name="cd_play_trailer">Play trailer</string>
+    <string name="cd_movie_poster">Poster of %s</string>
+    <string name="cd_rating">Rating</string>
 </resources>

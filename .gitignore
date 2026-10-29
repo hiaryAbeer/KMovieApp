@@ -97,3 +97,11 @@ lint/tmp/
 Thumbs.db
 ehthumbs.db
 Desktop.ini 
+
+# AI Code Tracker
+.tracker/
+.tracker.*
+
+# IDE / Kotlin
+.idea/
+.kotlin/
