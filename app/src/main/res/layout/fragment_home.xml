@@ -41,17 +41,6 @@
         app:layout_constraintTop_toTopOf="@id/appTitle"
         app:tint="@color/on_brand" />
 
-    <ImageButton
-        android:id="@+id/favoritesButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/favorites"
-        android:src="@drawable/ic_favorite_border"
-        app:layout_constraintBottom_toBottomOf="@id/appTitle"
-        app:layout_constraintEnd_toStartOf="@id/searchButton"
-        app:layout_constraintTop_toTopOf="@id/appTitle"
-        app:tint="@color/on_brand" />
 
     <ImageButton
         android:id="@+id/searchButton"

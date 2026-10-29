@@ -18,6 +18,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import com.abeerapps.kmovieapp.BuildConfig
 import com.abeerapps.kmovieapp.R
@@ -106,10 +107,10 @@ class MainActivity : AppCompatActivity(), DrawerHost {
         navigationView.setNavigationItemSelectedListener { item ->
             closeDrawer()
             when (item.itemId) {
+                R.id.drawerFavorites ->
+                    navigateFromHome(HomeFragmentDirections.actionHomeToFavorites())
                 R.id.drawerTheme -> showThemePicker()
-                R.id.drawerAbout -> if (navController.currentDestination?.id == R.id.homeFragment) {
-                    navController.navigate(HomeFragmentDirections.actionHomeToAbout())
-                }
+                R.id.drawerAbout -> navigateFromHome(HomeFragmentDirections.actionHomeToAbout())
                 R.id.drawerSignOut -> showSignOutConfirmation(signInViewModel::signOut)
             }
             true
@@ -139,6 +140,13 @@ class MainActivity : AppCompatActivity(), DrawerHost {
                 closeDrawerOnBack.isEnabled = false
             }
         })
+    }
+
+    /** Drawer items navigate from Home, the only screen where the drawer can be opened. */
+    private fun navigateFromHome(directions: NavDirections) {
+        if (navController.currentDestination?.id == R.id.homeFragment) {
+            navController.navigate(directions)
+        }
     }
 
     private fun bindAccount(session: Session?) {

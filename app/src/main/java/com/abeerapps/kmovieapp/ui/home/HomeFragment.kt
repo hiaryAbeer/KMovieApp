@@ -47,9 +47,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.searchButton.setOnClickListener {
             navigateSafely(HomeFragmentDirections.actionHomeToSearch())
         }
-        binding.favoritesButton.setOnClickListener {
-            navigateSafely(HomeFragmentDirections.actionHomeToFavorites())
-        }
 
         collectWithViewLifecycle(viewModel.uiState) { state ->
             trendingAdapter.submitList(state.trending)
