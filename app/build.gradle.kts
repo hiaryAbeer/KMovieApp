@@ -64,13 +64,6 @@ android {
         viewBinding = true
         buildConfig = true
     }
-
-    lint {
-        // AGP 8.7's lint can't read newer library class files: the LiveData detector crashes and
-        // Instantiatable reports false positives (e.g. "MainActivity must extend Activity").
-        // Re-enable both after upgrading AGP.
-        disable += setOf("NullSafeMutableLiveData", "Instantiatable")
-    }
 }
 
 kotlin {
