@@ -7,6 +7,7 @@
     <!-- Text and icons drawn on the yellow brand color, so always dark. -->
     <color name="on_brand">#292B3A</color>
     <color name="favorite_red">#E53935</color>
+    <color name="ic_launcher_background">#FAC800</color>
     <color name="white">#FFFFFF</color>
 
     <!-- Overridden in values-night. -->
