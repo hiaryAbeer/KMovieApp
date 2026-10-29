@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.navigation.safeargs)
@@ -63,6 +64,8 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        // Compose is adopted screen by screen inside the XML app (login first).
+        compose = true
     }
 }
 
@@ -86,6 +89,13 @@ dependencies {
     implementation(libs.androidx.browser)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.material)
+
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.material3)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    debugImplementation(libs.compose.ui.tooling)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

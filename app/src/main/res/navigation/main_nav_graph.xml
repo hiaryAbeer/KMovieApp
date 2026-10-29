@@ -57,6 +57,19 @@
         <deepLink app:uri="kmovieapp://movie/{movieId}" />
     </fragment>
 
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.abeerapps.kmovieapp.ui.login.LoginFragment"
+        tools:layout="@layout/fragment_login" />
+
+    <action
+        android:id="@+id/action_global_login"
+        app:destination="@id/loginFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
     <action
         android:id="@+id/action_global_movieDetails"
         app:destination="@id/movieDetailsFragment"

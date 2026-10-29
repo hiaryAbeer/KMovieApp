@@ -13,6 +13,17 @@ data class CreateSessionRequestDto(
     @SerialName("request_token") val requestToken: String,
 )
 
+/** Approves a request token with the user's TMDB credentials, without the website. */
+@Serializable
+data class ValidateWithLoginRequestDto(
+    val username: String,
+    val password: String,
+    @SerialName("request_token") val requestToken: String,
+) {
+    // Keep the password out of logs and crash reports.
+    override fun toString() = "ValidateWithLoginRequestDto(username=$username, password=***)"
+}
+
 @Serializable
 data class SessionDto(
     @SerialName("session_id") val sessionId: String,

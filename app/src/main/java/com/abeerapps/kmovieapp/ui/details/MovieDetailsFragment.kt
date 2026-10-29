@@ -6,14 +6,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.abeerapps.kmovieapp.R
 import com.abeerapps.kmovieapp.databinding.FragmentMovieDetailsBinding
 import com.abeerapps.kmovieapp.domain.model.MovieDetails
-import com.abeerapps.kmovieapp.ui.auth.SignInViewModel
-import com.abeerapps.kmovieapp.ui.auth.showSignInPrompt
 import com.abeerapps.kmovieapp.ui.common.BaseFragment
 import com.abeerapps.kmovieapp.ui.common.TmdbImageSize
 import com.abeerapps.kmovieapp.ui.common.applyStatusBarMargin
@@ -21,6 +18,7 @@ import com.abeerapps.kmovieapp.ui.common.applySystemBarsPadding
 import com.abeerapps.kmovieapp.ui.common.collectWithViewLifecycle
 import com.abeerapps.kmovieapp.ui.common.loadTmdbImage
 import com.abeerapps.kmovieapp.ui.common.messageRes
+import com.abeerapps.kmovieapp.ui.common.navigateToLogin
 import com.abeerapps.kmovieapp.ui.common.render
 import com.abeerapps.kmovieapp.ui.common.setOnRetryClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +28,6 @@ class MovieDetailsFragment :
     BaseFragment<FragmentMovieDetailsBinding>(FragmentMovieDetailsBinding::inflate) {
 
     private val viewModel: MovieDetailsViewModel by viewModels()
-    private val signInViewModel: SignInViewModel by activityViewModels()
 
     private val castAdapter = CastAdapter()
 
@@ -106,7 +103,7 @@ class MovieDetailsFragment :
 
     private fun handleEvent(event: MovieDetailsEvent) {
         when (event) {
-            MovieDetailsEvent.RequireSignIn -> showSignInPrompt(signInViewModel::startSignIn)
+            MovieDetailsEvent.RequireSignIn -> navigateToLogin()
             is MovieDetailsEvent.ShowError -> showMessage(event.error.messageRes())
         }
     }

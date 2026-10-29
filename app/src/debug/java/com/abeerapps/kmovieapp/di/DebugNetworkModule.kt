@@ -22,8 +22,8 @@ object DebugNetworkModule {
     @Provides
     @IntoSet
     @DebugInterceptor
-    fun provideChuckerInterceptor(@ApplicationContext context: Context): Interceptor =
-        ChuckerInterceptor.Builder(context)
+    fun provideChuckerInterceptor(@ApplicationContext context: Context): Interceptor {
+        val chucker = ChuckerInterceptor.Builder(context)
             .collector(
                 ChuckerCollector(
                     context = context,
@@ -33,10 +33,13 @@ object DebugNetworkModule {
             )
             .alwaysReadResponseBody(true)
             .build()
+        return SkipSensitiveCallsInterceptor(chucker)
+    }
 
     /** OkHttp Profiler: streams calls to the Android Studio "OkHttp Profiler" plugin. */
     @Provides
     @IntoSet
     @DebugInterceptor
-    fun provideOkHttpProfilerInterceptor(): Interceptor = OkHttpProfilerInterceptor()
+    fun provideOkHttpProfilerInterceptor(): Interceptor =
+        SkipSensitiveCallsInterceptor(OkHttpProfilerInterceptor())
 }

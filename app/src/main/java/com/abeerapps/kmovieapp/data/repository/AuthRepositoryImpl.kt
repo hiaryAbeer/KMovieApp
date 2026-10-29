@@ -5,6 +5,7 @@ import com.abeerapps.kmovieapp.data.local.SessionStore
 import com.abeerapps.kmovieapp.data.remote.TmdbApi
 import com.abeerapps.kmovieapp.data.remote.dto.CreateSessionRequestDto
 import com.abeerapps.kmovieapp.data.remote.dto.DeleteSessionRequestDto
+import com.abeerapps.kmovieapp.data.remote.dto.ValidateWithLoginRequestDto
 import com.abeerapps.kmovieapp.data.remote.safeApiCall
 import com.abeerapps.kmovieapp.domain.model.DataError
 import com.abeerapps.kmovieapp.domain.model.Outcome
@@ -36,6 +37,21 @@ class AuthRepositoryImpl @Inject constructor(
             return Outcome.Failure(DataError.UNAUTHORIZED)
         }
         return createSession(requestToken)
+    }
+
+    override suspend fun signInWithCredentials(
+        username: String,
+        password: String,
+    ): Outcome<Session> {
+        val approvedToken = safeApiCall {
+            val token = api.createRequestToken().requestToken
+            val credentials = ValidateWithLoginRequestDto(username, password, token)
+            api.validateWithLogin(credentials).requestToken
+        }
+        return when (approvedToken) {
+            is Outcome.Success -> createSession(approvedToken.data)
+            is Outcome.Failure -> approvedToken
+        }
     }
 
     private suspend fun createSession(requestToken: String): Outcome<Session> = safeApiCall {

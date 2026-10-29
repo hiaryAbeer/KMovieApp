@@ -12,6 +12,7 @@ import com.abeerapps.kmovieapp.data.remote.dto.MoviesPageDto
 import com.abeerapps.kmovieapp.data.remote.dto.RequestTokenDto
 import com.abeerapps.kmovieapp.data.remote.dto.SessionDto
 import com.abeerapps.kmovieapp.data.remote.dto.StatusDto
+import com.abeerapps.kmovieapp.data.remote.dto.ValidateWithLoginRequestDto
 import com.abeerapps.kmovieapp.data.remote.dto.VideosResponseDto
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -53,6 +54,9 @@ interface TmdbApi {
 
     @GET("authentication/token/new")
     suspend fun createRequestToken(): RequestTokenDto
+
+    @POST("authentication/token/validate_with_login")
+    suspend fun validateWithLogin(@Body body: ValidateWithLoginRequestDto): RequestTokenDto
 
     @POST("authentication/session/new")
     suspend fun createSession(@Body body: CreateSessionRequestDto): SessionDto

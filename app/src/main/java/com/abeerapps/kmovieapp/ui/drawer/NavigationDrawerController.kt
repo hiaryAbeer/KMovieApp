@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.abeerapps.kmovieapp.BuildConfig
+import com.abeerapps.kmovieapp.MainNavGraphDirections
 import com.abeerapps.kmovieapp.R
 import com.abeerapps.kmovieapp.databinding.DrawerHeaderBinding
 import com.abeerapps.kmovieapp.domain.model.Session
@@ -46,7 +47,7 @@ class NavigationDrawerController(
         header.root.applySystemBarsPadding(top = true)
         header.signInButton.setOnClickListener {
             close()
-            signInViewModel.startSignIn()
+            navigateFromHome(MainNavGraphDirections.actionGlobalLogin())
         }
         navigationView.menu.findItem(R.id.drawerVersion).title = activity.getString(
             R.string.version_format,
@@ -86,12 +87,7 @@ class NavigationDrawerController(
 
         activity.lifecycleScope.launch {
             activity.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch { signInViewModel.session.collect(::bindAccount) }
-                launch {
-                    signInViewModel.isSigningIn.collect { signingIn ->
-                        header.signInButton.isEnabled = !signingIn
-                    }
-                }
+                signInViewModel.session.collect(::bindAccount)
             }
         }
     }

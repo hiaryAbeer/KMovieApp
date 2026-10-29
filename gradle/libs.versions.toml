@@ -15,6 +15,7 @@ swiperefreshlayout = "1.1.0"
 lifecycle = "2.9.4"
 navigation = "2.9.5"
 paging = "3.3.6"
+composeBom = "2025.11.01"
 browser = "1.8.0"
 datastore = "1.1.7"
 
@@ -52,6 +53,13 @@ androidx-browser = { module = "androidx.browser:browser", version.ref = "browser
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 
@@ -81,6 +89,7 @@ androidx-test-espresso = { module = "androidx.test.espresso:espresso-core", vers
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }

@@ -1,13 +1,11 @@
 package com.abeerapps.kmovieapp.ui
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +19,7 @@ import com.abeerapps.kmovieapp.domain.model.DataError
 import com.abeerapps.kmovieapp.ui.auth.SignInEvent
 import com.abeerapps.kmovieapp.ui.auth.SignInViewModel
 import com.abeerapps.kmovieapp.ui.common.messageRes
+import com.abeerapps.kmovieapp.ui.common.openInCustomTab
 import com.abeerapps.kmovieapp.ui.drawer.NavigationDrawerController
 import com.abeerapps.kmovieapp.ui.settings.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -91,7 +90,7 @@ class MainActivity : AppCompatActivity(), DrawerHost {
 
     private fun onSignInEvent(event: SignInEvent) {
         when (event) {
-            is SignInEvent.OpenApprovalPage -> openInCustomTab(event.url)
+            is SignInEvent.OpenApprovalPage -> openApprovalPage(event.url)
             is SignInEvent.SignedIn -> showMessage(getString(R.string.signed_in_as, event.username))
             SignInEvent.SignedOut -> showMessage(getString(R.string.signed_out))
             SignInEvent.Cancelled -> showMessage(getString(R.string.sign_in_cancelled))
@@ -106,12 +105,8 @@ class MainActivity : AppCompatActivity(), DrawerHost {
         }
     }
 
-    private fun openInCustomTab(url: String) {
-        try {
-            CustomTabsIntent.Builder().setShowTitle(true).build().launchUrl(this, url.toUri())
-        } catch (_: ActivityNotFoundException) {
-            showMessage(getString(R.string.error_no_browser))
-        }
+    private fun openApprovalPage(url: String) {
+        if (!openInCustomTab(url)) showMessage(getString(R.string.error_no_browser))
     }
 
     private fun showMessage(message: String) {

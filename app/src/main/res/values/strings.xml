@@ -30,11 +30,23 @@
     <string name="favorites_empty">No favorites yet. Tap the heart on any movie to save it here.</string>
     <string name="favorites_signed_out">Sign in with your TMDB account to save movies and see them here, on any device.</string>
     <string name="sign_in">Sign in with TMDB</string>
-    <string name="sign_in_title">Sign in to save favorites</string>
-    <string name="sign_in_message">Favorites are saved to your TMDB account. You\'ll approve access on themoviedb.org, then come right back.</string>
-    <string name="not_now">Not now</string>
     <string name="signed_in_as">Signed in as %s</string>
     <string name="sign_in_cancelled">Sign-in cancelled</string>
+
+    <!-- Login (Compose) -->
+    <string name="login_title">Sign in</string>
+    <string name="login_subtitle">Use your TMDB account to save favorites and see them on any device.</string>
+    <string name="login_username">TMDB username</string>
+    <string name="login_password">Password</string>
+    <string name="login_sign_in">Sign in</string>
+    <string name="login_or">or</string>
+    <string name="login_continue_with_website">Continue with TMDB website</string>
+    <string name="login_privacy_note">Your password is sent only to TMDB and is never stored on this device.</string>
+    <string name="login_no_account">New to TMDB?</string>
+    <string name="login_create_account">Create an account</string>
+    <string name="error_wrong_credentials">Wrong username or password.</string>
+    <string name="cd_show_password">Show password</string>
+    <string name="cd_hide_password">Hide password</string>
     <string name="sign_in_failed">TMDB didn\'t approve the sign-in. Please try again.</string>
     <string name="sign_out">Sign out</string>
     <string name="sign_out_title">Sign out of TMDB?</string>

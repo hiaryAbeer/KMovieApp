@@ -16,6 +16,7 @@ import com.abeerapps.kmovieapp.ui.common.MovieGridAdapter
 import com.abeerapps.kmovieapp.ui.common.applySystemBarsPadding
 import com.abeerapps.kmovieapp.ui.common.collectLatestWithViewLifecycle
 import com.abeerapps.kmovieapp.ui.common.collectWithViewLifecycle
+import com.abeerapps.kmovieapp.ui.common.navigateToLogin
 import com.abeerapps.kmovieapp.ui.common.navigateToMovieDetails
 import com.abeerapps.kmovieapp.ui.common.render
 import com.abeerapps.kmovieapp.ui.common.setOnRetryClickListener
@@ -46,7 +47,7 @@ class FavoritesFragment :
 
     private fun setUpClickListeners() = with(binding) {
         backButton.setOnClickListener { findNavController().navigateUp() }
-        signInButton.setOnClickListener { signInViewModel.startSignIn() }
+        signInButton.setOnClickListener { navigateToLogin() }
         signOutButton.setOnClickListener {
             requireContext().showSignOutConfirmation(signInViewModel::signOut)
         }
@@ -58,9 +59,6 @@ class FavoritesFragment :
     }
 
     private fun observeSignIn() {
-        collectWithViewLifecycle(signInViewModel.isSigningIn) { signingIn ->
-            binding.signInButton.isEnabled = !signingIn
-        }
         val sessionAndLoadStates =
             signInViewModel.session.combine(movieAdapter.loadStateFlow, ::Pair)
         collectWithViewLifecycle(sessionAndLoadStates) { (session, loadStates) ->

@@ -17,6 +17,13 @@ fun Fragment.navigateSafely(directions: NavDirections) {
     }
 }
 
+/** Opens the login screen from anywhere, unless it is already showing. */
+fun Fragment.navigateToLogin() {
+    val navController = findNavController()
+    if (navController.currentDestination?.id == R.id.loginFragment) return
+    navController.navigate(MainNavGraphDirections.actionGlobalLogin())
+}
+
 /** Opens movie details; a global action, so the destination itself is checked instead. */
 fun Fragment.navigateToMovieDetails(movieId: Long) {
     val navController = findNavController()
