@@ -21,7 +21,10 @@ import javax.inject.Singleton
 
 private val Context.sessionDataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
 
-/** Persists the TMDB session in app-private storage. */
+/**
+ * Persists the TMDB session in app-private storage. The file is excluded from backups and
+ * device transfers (see res/xml/data_extraction_rules.xml), because the session_id is a credential.
+ */
 @Singleton
 class SessionStore @Inject constructor(
     @ApplicationContext context: Context,
@@ -51,9 +54,25 @@ class SessionStore @Inject constructor(
         dataStore.edit { it.clear() }
     }
 
+    /** The request token this app sent to TMDB for approval; only its redirect is accepted. */
+    suspend fun savePendingRequestToken(token: String) {
+        dataStore.edit { it[KEY_PENDING_REQUEST_TOKEN] = token }
+    }
+
+    /** Returns the pending request token and forgets it, so each token can be used once. */
+    suspend fun consumePendingRequestToken(): String? {
+        var token: String? = null
+        dataStore.edit { prefs ->
+            token = prefs[KEY_PENDING_REQUEST_TOKEN]
+            prefs.remove(KEY_PENDING_REQUEST_TOKEN)
+        }
+        return token
+    }
+
     private companion object {
         val KEY_SESSION_ID = stringPreferencesKey("session_id")
         val KEY_ACCOUNT_ID = longPreferencesKey("account_id")
         val KEY_USERNAME = stringPreferencesKey("username")
+        val KEY_PENDING_REQUEST_TOKEN = stringPreferencesKey("pending_request_token")
     }
 }
