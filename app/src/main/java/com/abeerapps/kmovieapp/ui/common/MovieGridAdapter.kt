@@ -1,19 +1,17 @@
-package com.abeerapps.kmovieapp.ui.genre
+package com.abeerapps.kmovieapp.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.abeerapps.kmovieapp.R
 import com.abeerapps.kmovieapp.databinding.ItemMovieGridBinding
 import com.abeerapps.kmovieapp.domain.model.Movie
-import com.abeerapps.kmovieapp.ui.common.MovieDiffCallback
-import com.abeerapps.kmovieapp.ui.common.TmdbImageSize
-import com.abeerapps.kmovieapp.ui.common.loadTmdbImage
 
+/** Paged two-column poster grid shared by genre, search and favorites screens. */
 class MovieGridAdapter(
     private val onMovieClick: (Movie) -> Unit,
-) : ListAdapter<Movie, MovieGridAdapter.ViewHolder>(MovieDiffCallback) {
+) : PagingDataAdapter<Movie, MovieGridAdapter.ViewHolder>(MovieDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemMovieGridBinding.inflate(
@@ -23,7 +21,7 @@ class MovieGridAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let(holder::bind)
     }
 
     inner class ViewHolder(
@@ -33,7 +31,8 @@ class MovieGridAdapter(
         init {
             binding.root.setOnClickListener {
                 bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION }
-                    ?.let { onMovieClick(getItem(it)) }
+                    ?.let(::getItem)
+                    ?.let(onMovieClick)
             }
         }
 

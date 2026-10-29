@@ -241,4 +241,29 @@
             android:importantForAccessibility="no"
             android:src="@drawable/left_arrow" />
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/favoriteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_m"
+        android:layout_marginEnd="@dimen/spacing_m"
+        android:background="@drawable/circle_raw_gray"
+        android:clickable="true"
+        android:contentDescription="@string/cd_add_favorite"
+        android:focusable="true"
+        android:padding="@dimen/spacing_s"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/favoriteIcon"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_favorite_border"
+            app:tint="@null" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,6 +32,13 @@ android {
         buildConfigField("String", "TMDB_API_KEY", "\"$tmdbApiKey\"")
         buildConfigField("String", "TMDB_BASE_URL", "\"https://api.themoviedb.org/3/\"")
         buildConfigField("String", "TMDB_IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/\"")
+
+        // TMDB sends the user back here after they approve sign-in; also used by the manifest.
+        val authScheme = "kmovieapp"
+        val authHost = "auth"
+        manifestPlaceholders["authScheme"] = authScheme
+        manifestPlaceholders["authHost"] = authHost
+        buildConfigField("String", "TMDB_AUTH_REDIRECT_URI", "\"$authScheme://$authHost\"")
     }
 
     buildTypes {
@@ -82,6 +89,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.datastore.preferences)
     implementation(libs.material)
 
     implementation(libs.hilt.android)
@@ -104,6 +114,7 @@ dependencies {
     testImplementation(libs.turbine)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.okhttp.mockwebserver)
+    testImplementation(libs.androidx.paging.testing)
 
     androidTestImplementation(libs.androidx.test.junit)
     androidTestImplementation(libs.androidx.test.espresso)

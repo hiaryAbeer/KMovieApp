@@ -11,5 +11,6 @@
 
     <color name="surface">#FFFFFF</color>
     <color name="placeholder">#EAEAEA</color>
+    <color name="favorite_red">#E53935</color>
     <color name="white">#FFFFFF</color>
 </resources>

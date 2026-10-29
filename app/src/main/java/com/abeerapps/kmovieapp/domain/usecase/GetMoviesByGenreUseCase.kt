@@ -6,6 +6,5 @@ import javax.inject.Inject
 class GetMoviesByGenreUseCase @Inject constructor(
     private val repository: MovieRepository,
 ) {
-    suspend operator fun invoke(genreId: Int, page: Int = 1) =
-        repository.getMoviesByGenre(genreId, page)
+    operator fun invoke(genreId: Int) = repository.getMoviesByGenre(genreId)
 }

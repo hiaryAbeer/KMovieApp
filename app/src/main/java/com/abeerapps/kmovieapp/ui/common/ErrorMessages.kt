@@ -8,5 +8,6 @@ import com.abeerapps.kmovieapp.domain.model.DataError
 fun DataError.messageRes(): Int = when (this) {
     DataError.NETWORK -> R.string.error_network
     DataError.SERVER -> R.string.error_server
+    DataError.UNAUTHORIZED -> R.string.error_unauthorized
     DataError.UNKNOWN -> R.string.error_unknown
 }

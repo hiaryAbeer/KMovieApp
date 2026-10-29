@@ -10,6 +10,7 @@ import com.abeerapps.kmovieapp.databinding.FragmentHomeBinding
 import com.abeerapps.kmovieapp.ui.common.applySystemBarsPadding
 import com.abeerapps.kmovieapp.ui.common.collectWithViewLifecycle
 import com.abeerapps.kmovieapp.ui.common.messageRes
+import com.abeerapps.kmovieapp.ui.common.navigateSafely
 import com.abeerapps.kmovieapp.ui.common.navigateToMovieDetails
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +41,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }.also { it.attach() }
 
         binding.errorView.retryButton.setOnClickListener { viewModel.retry() }
+        binding.searchButton.setOnClickListener {
+            navigateSafely(HomeFragmentDirections.actionHomeToSearch())
+        }
+        binding.favoritesButton.setOnClickListener {
+            navigateSafely(HomeFragmentDirections.actionHomeToFavorites())
+        }
 
         collectWithViewLifecycle(viewModel.uiState) { state ->
             trendingAdapter.submitList(state.trending)

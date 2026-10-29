@@ -16,10 +16,36 @@
     <string name="error_network">No internet connection. Check your connection and try again.</string>
     <string name="error_server">The movie service is having trouble. Please try again later.</string>
     <string name="error_unknown">Something went wrong. Please try again.</string>
+    <string name="error_unauthorized">Your TMDB session has expired. Please sign in again.</string>
     <string name="error_no_app_to_open_link">No app found to play the trailer.</string>
+    <string name="error_no_browser">No browser found to sign in with TMDB.</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search movies</string>
+    <string name="search_prompt">Find any movie by its title.</string>
+    <string name="search_no_results">No movies found for “%s”.</string>
+
+    <!-- Favorites & sign-in -->
+    <string name="favorites">Favorites</string>
+    <string name="favorites_empty">No favorites yet. Tap the heart on any movie to save it here.</string>
+    <string name="favorites_signed_out">Sign in with your TMDB account to save movies and see them here, on any device.</string>
+    <string name="sign_in">Sign in with TMDB</string>
+    <string name="sign_in_title">Sign in to save favorites</string>
+    <string name="sign_in_message">Favorites are saved to your TMDB account. You\'ll approve access on themoviedb.org, then come right back.</string>
+    <string name="not_now">Not now</string>
+    <string name="signed_in_as">Signed in as %s</string>
+    <string name="sign_in_cancelled">Sign-in cancelled</string>
+    <string name="sign_in_failed">TMDB didn\'t approve the sign-in. Please try again.</string>
+    <string name="sign_out">Sign out</string>
+    <string name="sign_out_title">Sign out of TMDB?</string>
+    <string name="sign_out_message">Your favorites stay saved in your TMDB account.</string>
+    <string name="signed_out">Signed out</string>
 
     <string name="cd_back">Back</string>
     <string name="cd_play_trailer">Play trailer</string>
     <string name="cd_movie_poster">Poster of %s</string>
     <string name="cd_rating">Rating</string>
+    <string name="cd_search">Search</string>
+    <string name="cd_add_favorite">Add to favorites</string>
+    <string name="cd_remove_favorite">Remove from favorites</string>
 </resources>

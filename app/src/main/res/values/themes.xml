@@ -14,6 +14,12 @@
         <item name="android:windowBackground">@color/surface</item>
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.KMovie.Dialog</item>
+    </style>
+
+    <!-- Yellow text buttons are unreadable on a light dialog, so dialogs use the dark brand color. -->
+    <style name="ThemeOverlay.KMovie.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorPrimary">@color/text_color_a</item>
     </style>
 
     <style name="TextAppearance.KMovie.Tab" parent="TextAppearance.Material3.TitleSmall">

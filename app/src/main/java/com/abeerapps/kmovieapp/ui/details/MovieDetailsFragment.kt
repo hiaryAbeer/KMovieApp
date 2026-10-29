@@ -7,11 +7,14 @@ import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.abeerapps.kmovieapp.R
 import com.abeerapps.kmovieapp.databinding.FragmentMovieDetailsBinding
 import com.abeerapps.kmovieapp.domain.model.MovieDetails
+import com.abeerapps.kmovieapp.ui.auth.SignInViewModel
+import com.abeerapps.kmovieapp.ui.auth.showSignInPrompt
 import com.abeerapps.kmovieapp.ui.common.TmdbImageSize
 import com.abeerapps.kmovieapp.ui.common.applyStatusBarMargin
 import com.abeerapps.kmovieapp.ui.common.applySystemBarsPadding
@@ -25,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     private val viewModel: MovieDetailsViewModel by viewModels()
+    private val signInViewModel: SignInViewModel by activityViewModels()
 
     private var _binding: FragmentMovieDetailsBinding? = null
     private val binding get() = _binding!!
@@ -33,6 +37,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMovieDetailsBinding.bind(view)
         binding.backButton.applyStatusBarMargin()
+        binding.favoriteButton.applyStatusBarMargin()
         binding.scrollContent.applySystemBarsPadding(bottom = true)
 
         val castAdapter = CastAdapter()
@@ -40,6 +45,16 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
         binding.backButton.setOnClickListener { findNavController().navigateUp() }
         binding.errorView.retryButton.setOnClickListener { viewModel.retry() }
+        binding.favoriteButton.setOnClickListener { viewModel.onFavoriteClick() }
+
+        collectWithViewLifecycle(viewModel.favoriteState, ::bindFavorite)
+        collectWithViewLifecycle(viewModel.events) { event ->
+            when (event) {
+                MovieDetailsEvent.RequireSignIn -> showSignInPrompt(signInViewModel::startSignIn)
+                is MovieDetailsEvent.ShowError ->
+                    Snackbar.make(binding.root, event.error.messageRes(), Snackbar.LENGTH_SHORT).show()
+            }
+        }
 
         collectWithViewLifecycle(viewModel.uiState) { state ->
             val content = state as? MovieDetailsUiState.Content
@@ -48,6 +63,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
             if (state is MovieDetailsUiState.Loading) binding.shimmer.startShimmer() else binding.shimmer.stopShimmer()
             binding.scrollContent.isVisible = content != null
             binding.playTrailerButton.isVisible = content?.details?.trailer != null
+            binding.favoriteButton.isVisible = content != null
             binding.errorView.root.isVisible = state is MovieDetailsUiState.Error
             if (state is MovieDetailsUiState.Error) binding.errorView.errorMessage.setText(state.error.messageRes())
 
@@ -73,6 +89,16 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
         val trailer = details.trailer
         playTrailerButton.setOnClickListener { trailer?.let { openUrl(it.url) } }
+    }
+
+    private fun bindFavorite(state: FavoriteUiState) = with(binding) {
+        favoriteIcon.setImageResource(
+            if (state.isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border,
+        )
+        favoriteButton.contentDescription = getString(
+            if (state.isFavorite) R.string.cd_remove_favorite else R.string.cd_add_favorite,
+        )
+        favoriteButton.isEnabled = !state.isUpdating
     }
 
     private fun buildMetaLine(details: MovieDetails): String = listOfNotNull(

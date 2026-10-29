@@ -17,8 +17,6 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:padding="@dimen/spacing_s"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
             tools:listitem="@layout/item_movie_grid" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

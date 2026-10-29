@@ -14,13 +14,18 @@ suspend fun <T> safeApiCall(block: suspend () -> T): Outcome<T> =
         Outcome.Success(block())
     } catch (e: CancellationException) {
         throw e
-    } catch (e: IOException) {
-        Timber.w(e, "Network error")
-        Outcome.Failure(DataError.NETWORK)
-    } catch (e: HttpException) {
-        Timber.w(e, "HTTP %d", e.code())
-        Outcome.Failure(DataError.SERVER)
-    } catch (e: SerializationException) {
-        Timber.e(e, "Malformed response")
-        Outcome.Failure(DataError.UNKNOWN)
+    } catch (e: Exception) {
+        Outcome.Failure(e.toDataError())
     }
+
+/** Maps API exceptions to [DataError]; rethrows anything unexpected so real bugs still crash. */
+fun Exception.toDataError(): DataError = when (this) {
+    is IOException -> DataError.NETWORK.also { Timber.w(this, "Network error") }
+    is HttpException -> when (code()) {
+        401 -> DataError.UNAUTHORIZED
+        else -> DataError.SERVER
+    }.also { Timber.w(this, "HTTP %d", code()) }
+
+    is SerializationException -> DataError.UNKNOWN.also { Timber.e(this, "Malformed response") }
+    else -> throw this
+}

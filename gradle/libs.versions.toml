@@ -14,6 +14,9 @@ recyclerview = "1.4.0"
 swiperefreshlayout = "1.1.0"
 lifecycle = "2.9.4"
 navigation = "2.9.5"
+paging = "3.3.6"
+browser = "1.8.0"
+datastore = "1.1.7"
 
 coroutines = "1.10.2"
 serialization = "1.9.0"
@@ -41,6 +44,10 @@ androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-view
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
+androidx-paging-testing = { module = "androidx.paging:paging-testing", version.ref = "paging" }
+androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
