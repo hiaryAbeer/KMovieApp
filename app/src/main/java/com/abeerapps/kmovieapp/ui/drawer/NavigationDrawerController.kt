@@ -22,6 +22,7 @@ import com.abeerapps.kmovieapp.ui.auth.showSignOutConfirmation
 import com.abeerapps.kmovieapp.ui.common.applyAsNightMode
 import com.abeerapps.kmovieapp.ui.common.applySystemBarsPadding
 import com.abeerapps.kmovieapp.ui.common.labelRes
+import com.abeerapps.kmovieapp.ui.debug.NetworkInspector
 import com.abeerapps.kmovieapp.ui.home.HomeFragmentDirections
 import com.abeerapps.kmovieapp.ui.settings.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -39,6 +40,7 @@ class NavigationDrawerController(
     private val navController: () -> NavController,
     private val signInViewModel: SignInViewModel,
     private val settingsViewModel: SettingsViewModel,
+    private val networkInspector: NetworkInspector?,
 ) {
     private val header = DrawerHeaderBinding.bind(navigationView.getHeaderView(0))
 
@@ -49,6 +51,8 @@ class NavigationDrawerController(
             close()
             navigateFromHome(MainNavGraphDirections.actionGlobalLogin())
         }
+        navigationView.menu.findItem(R.id.drawerNetworkInspector).isVisible =
+            networkInspector != null
         navigationView.menu.findItem(R.id.drawerVersion).title = activity.getString(
             R.string.version_format,
             BuildConfig.VERSION_NAME,
@@ -102,6 +106,8 @@ class NavigationDrawerController(
             R.id.drawerTheme -> showThemePicker()
             R.id.drawerAbout -> navigateFromHome(HomeFragmentDirections.actionHomeToAbout())
             R.id.drawerSignOut -> activity.showSignOutConfirmation(signInViewModel::signOut)
+            R.id.drawerNetworkInspector ->
+                networkInspector?.let { activity.startActivity(it.launchIntent(activity)) }
         }
     }
 

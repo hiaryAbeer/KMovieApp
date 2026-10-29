@@ -20,11 +20,15 @@ import com.abeerapps.kmovieapp.ui.auth.SignInEvent
 import com.abeerapps.kmovieapp.ui.auth.SignInViewModel
 import com.abeerapps.kmovieapp.ui.common.messageRes
 import com.abeerapps.kmovieapp.ui.common.openInCustomTab
+import com.abeerapps.kmovieapp.ui.debug.NetworkInspector
 import com.abeerapps.kmovieapp.ui.drawer.NavigationDrawerController
 import com.abeerapps.kmovieapp.ui.settings.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.Optional
+import javax.inject.Inject
+import kotlin.jvm.optionals.getOrNull
 
 /** Hosts navigation, the drawer, and the browser round trip of TMDB sign-in. */
 @AndroidEntryPoint
@@ -32,6 +36,9 @@ class MainActivity : AppCompatActivity(), DrawerHost {
 
     private val signInViewModel: SignInViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
+
+    @Inject
+    lateinit var networkInspector: Optional<NetworkInspector>
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawer: NavigationDrawerController
 
@@ -57,6 +64,7 @@ class MainActivity : AppCompatActivity(), DrawerHost {
             navController = { navController },
             signInViewModel = signInViewModel,
             settingsViewModel = settingsViewModel,
+            networkInspector = networkInspector.getOrNull(),
         ).also { it.setUp() }
 
         lifecycleScope.launch {

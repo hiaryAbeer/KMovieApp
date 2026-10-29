@@ -1,6 +1,8 @@
 package com.abeerapps.kmovieapp.di
 
 import android.content.Context
+import com.abeerapps.kmovieapp.ui.debug.NetworkInspector
+import com.chuckerteam.chucker.api.Chucker
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
@@ -35,6 +37,10 @@ object DebugNetworkModule {
             .build()
         return SkipSensitiveCallsInterceptor(chucker)
     }
+
+    /** Opened from the drawer, so Chucker is reachable even when notifications are blocked. */
+    @Provides
+    fun provideNetworkInspector(): NetworkInspector = NetworkInspector(Chucker::getLaunchIntent)
 
     /** OkHttp Profiler: streams calls to the Android Studio "OkHttp Profiler" plugin. */
     @Provides

@@ -37,6 +37,7 @@ android {
         // TMDB sends the user back here after they approve sign-in; also used by the manifest.
         val authScheme = "kmovieapp"
         val authHost = "auth"
+        manifestPlaceholders["appLabel"] = "@string/app_name"
         manifestPlaceholders["authScheme"] = authScheme
         manifestPlaceholders["authHost"] = authHost
         buildConfigField("String", "TMDB_AUTH_REDIRECT_URI", "\"$authScheme://$authHost\"")
@@ -45,6 +46,8 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
+            // Distinguishes the debug install from release on the home screen.
+            manifestPlaceholders["appLabel"] = "KMovieApp Debug"
         }
         release {
             isMinifyEnabled = true

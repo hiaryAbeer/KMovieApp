@@ -23,6 +23,12 @@
 
     <!-- Separate group so NavigationView draws a divider above it. -->
     <group android:id="@+id/drawerInfoGroup">
+        <!-- Debug builds only: shown when a NetworkInspector is bound. -->
+        <item
+            android:id="@+id/drawerNetworkInspector"
+            android:icon="@drawable/ic_bug_report"
+            android:title="@string/network_inspector"
+            android:visible="false" />
         <item
             android:id="@+id/drawerVersion"
             android:enabled="false"
