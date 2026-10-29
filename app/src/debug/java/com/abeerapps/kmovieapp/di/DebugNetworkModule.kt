@@ -1,0 +1,42 @@
+package com.abeerapps.kmovieapp.di
+
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.RetentionManager
+import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import dagger.multibindings.IntoSet
+import okhttp3.Interceptor
+
+/** Network inspectors for debug builds only. */
+@Module
+@InstallIn(SingletonComponent::class)
+object DebugNetworkModule {
+
+    /** Chucker: in-app HTTP inspector, opened from its notification. */
+    @Provides
+    @IntoSet
+    @DebugInterceptor
+    fun provideChuckerInterceptor(@ApplicationContext context: Context): Interceptor =
+        ChuckerInterceptor.Builder(context)
+            .collector(
+                ChuckerCollector(
+                    context = context,
+                    showNotification = true,
+                    retentionPeriod = RetentionManager.Period.ONE_DAY,
+                ),
+            )
+            .alwaysReadResponseBody(true)
+            .build()
+
+    /** OkHttp Profiler: streams calls to the Android Studio "OkHttp Profiler" plugin. */
+    @Provides
+    @IntoSet
+    @DebugInterceptor
+    fun provideOkHttpProfilerInterceptor(): Interceptor = OkHttpProfilerInterceptor()
+}

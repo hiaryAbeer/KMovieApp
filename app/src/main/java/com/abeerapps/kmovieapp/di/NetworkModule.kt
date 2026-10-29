@@ -6,11 +6,12 @@ import com.abeerapps.kmovieapp.data.remote.TmdbApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.multibindings.Multibinds
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.Interceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
@@ -21,6 +22,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    /** Declares the debug-interceptor set so it exists (empty) in release builds. */
+    @Module
+    @InstallIn(SingletonComponent::class)
+    interface Declarations {
+        @Multibinds
+        @DebugInterceptor
+        fun debugInterceptors(): Set<Interceptor>
+    }
+
     @Provides
     @Singleton
     fun provideJson(): Json = Json {
@@ -30,21 +40,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+    fun provideOkHttpClient(
+        @DebugInterceptor debugInterceptors: Set<@JvmSuppressWildcards Interceptor>,
+    ): OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(15, TimeUnit.SECONDS)
         .readTimeout(15, TimeUnit.SECONDS)
         .callTimeout(30, TimeUnit.SECONDS)
         .addInterceptor(ApiKeyInterceptor(BuildConfig.TMDB_API_KEY))
-        .apply {
-            if (BuildConfig.DEBUG) {
-                addInterceptor(
-                    HttpLoggingInterceptor().apply {
-                        level = HttpLoggingInterceptor.Level.BASIC
-                        redactQueryParams(ApiKeyInterceptor.QUERY_API_KEY)
-                    },
-                )
-            }
-        }
+        // After the API key, so inspectors show the request exactly as it is sent.
+        .apply { debugInterceptors.forEach(::addInterceptor) }
         .build()
 
     @Provides

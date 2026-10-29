@@ -25,6 +25,8 @@ okhttp = "5.1.0"
 coil = "3.3.0"
 shimmer = "0.5.0"
 timber = "5.0.1"
+chucker = "4.2.0"
+okhttpProfiler = "1.0.8"
 
 junit = "4.13.2"
 mockk = "1.14.9"
@@ -60,13 +62,14 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-kotlinx-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
-okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
 
 coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
+okhttp-profiler = { module = "com.localebro:okhttpprofiler", version.ref = "okhttpProfiler" }
 
 junit = { module = "junit:junit", version.ref = "junit" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }

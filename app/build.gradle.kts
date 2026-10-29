@@ -102,12 +102,15 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinx.serialization)
     implementation(libs.okhttp)
-    implementation(libs.okhttp.logging)
 
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
     implementation(libs.shimmer)
     implementation(libs.timber)
+
+    // Network inspectors: debug source set only, so release builds don't even contain them.
+    debugImplementation(libs.chucker)
+    debugImplementation(libs.okhttp.profiler)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
