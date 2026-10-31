@@ -24,8 +24,8 @@
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cd_back"
-            android:src="@drawable/left_arrow"
-            app:tint="@color/text_color_a" />
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/text_primary" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"

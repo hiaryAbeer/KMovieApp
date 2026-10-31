@@ -70,7 +70,7 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@color/floating_button_bg" />
+            <solid android:color="@color/floating_button_background" />
 
             <corners android:radius="100dp" />
         </shape>
