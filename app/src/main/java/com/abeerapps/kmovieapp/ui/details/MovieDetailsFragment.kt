@@ -113,8 +113,14 @@ class MovieDetailsFragment :
 
     /** "2025 • 2h 05m • 1,234 votes", skipping parts TMDB doesn't have. */
     private fun buildMetaLine(details: MovieDetails): String = listOfNotNull(
-        details.releaseDate?.take(4),
-        details.runtimeMinutes?.let { getString(R.string.runtime_format, it / 60, it % 60) },
+        details.releaseDate?.take(YEAR_LENGTH),
+        details.runtimeMinutes?.let {
+            getString(
+                R.string.runtime_format,
+                it / MINUTES_PER_HOUR,
+                it % MINUTES_PER_HOUR,
+            )
+        },
         resources.getQuantityString(R.plurals.vote_count, details.voteCount, details.voteCount),
     ).joinToString(SEPARATOR)
 
@@ -133,5 +139,7 @@ class MovieDetailsFragment :
 
     private companion object {
         const val SEPARATOR = " • "
+        const val YEAR_LENGTH = 4 // release dates are "yyyy-MM-dd"
+        const val MINUTES_PER_HOUR = 60
     }
 }

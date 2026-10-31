@@ -3,7 +3,7 @@
     <!-- Brand: identical in light and dark. -->
     <color name="brand_yellow">#FAC800</color>
     <color name="brand_yellow_light">#FEDD5C</color>
-    <color name="circle_color">#FFCC00</color>
+    <color name="home_header_background">#FFCC00</color>
     <!-- Text and icons drawn on the yellow brand color, so always dark. -->
     <color name="on_brand">#292B3A</color>
     <color name="favorite_red">#E53935</color>
@@ -11,12 +11,12 @@
     <color name="white">#FFFFFF</color>
 
     <!-- Overridden in values-night. -->
-    <color name="text_color_a">#292B3A</color>
-    <color name="text_color_b">#66292B3A</color>
-    <color name="raw_text_color">#0B0F20</color>
+    <color name="text_primary">#292B3A</color>
+    <color name="text_tab_inactive">#66292B3A</color>
+    <color name="text_title">#0B0F20</color>
     <color name="text_secondary">#707070</color>
     <color name="surface">#FFFFFF</color>
     <color name="placeholder">#EAEAEA</color>
     <color name="badge_background">#292B3A</color>
-    <color name="floating_button_bg">#D6CCCCCC</color>
+    <color name="floating_button_background">#D6CCCCCC</color>
 </resources>

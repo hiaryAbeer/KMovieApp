@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abeerapps.kmovieapp.databinding.ItemLoadStateBinding
 
 /** List footer showing a spinner while the next page loads, or the error with a retry button. */
-class MovieLoadStateAdapter(
-    private val retry: () -> Unit,
-) : LoadStateAdapter<MovieLoadStateAdapter.ViewHolder>() {
+class MovieLoadStateAdapter(private val retry: () -> Unit) :
+    LoadStateAdapter<MovieLoadStateAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): ViewHolder {
-        val binding = ItemLoadStateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemLoadStateBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false,
+        )
         return ViewHolder(binding)
     }
 
@@ -22,9 +25,8 @@ class MovieLoadStateAdapter(
         holder.bind(loadState)
     }
 
-    inner class ViewHolder(
-        private val binding: ItemLoadStateBinding,
-    ) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemLoadStateBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.retryButton.setOnClickListener { retry() }
@@ -34,7 +36,11 @@ class MovieLoadStateAdapter(
             progressIndicator.isVisible = loadState is LoadState.Loading
             retryButton.isVisible = loadState is LoadState.Error
             errorMessage.isVisible = loadState is LoadState.Error
-            if (loadState is LoadState.Error) errorMessage.setText(loadState.error.asDataError().messageRes())
+            if (loadState is LoadState.Error) {
+                errorMessage.setText(
+                    loadState.error.asDataError().messageRes(),
+                )
+            }
         }
     }
 }

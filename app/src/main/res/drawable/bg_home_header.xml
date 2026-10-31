@@ -6,7 +6,7 @@
             <corners
                 android:bottomLeftRadius="16dp"
                 android:bottomRightRadius="16dp" />
-            <solid android:color="@color/circle_color" />
+            <solid android:color="@color/home_header_background" />
 
         </shape>
     </item>

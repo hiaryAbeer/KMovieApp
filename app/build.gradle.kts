@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.navigation.safeargs)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.detekt)
 }
 
 val localProperties = Properties().apply {
@@ -27,8 +29,6 @@ android {
         targetSdk = 35
         versionCode = 2
         versionName = "2.0.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "TMDB_API_KEY", "\"$tmdbApiKey\"")
         buildConfigField("String", "TMDB_BASE_URL", "\"https://api.themoviedb.org/3/\"")
@@ -74,6 +74,26 @@ android {
 
 kotlin {
     jvmToolchain(17)
+}
+
+// Code style: rules live in .editorconfig (Android Studio style, 100-column lines).
+ktlint {
+    version.set(libs.versions.ktlint)
+    android.set(true)
+}
+
+// Static analysis: default rules plus project tweaks in config/detekt/detekt.yml.
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom(rootProject.file("config/detekt/detekt.yml"))
+    source.setFrom("src/main/java", "src/debug/java", "src/test/java")
+}
+
+// detekt 1.23 is built with Kotlin 2.0; give it that compiler rather than the project's 2.2.
+configurations.matching { it.name == "detekt" }.configureEach {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.jetbrains.kotlin") useVersion("2.0.21")
+    }
 }
 
 dependencies {
@@ -124,7 +144,4 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.okhttp.mockwebserver)
     testImplementation(libs.androidx.paging.testing)
-
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.androidx.test.espresso)
 }

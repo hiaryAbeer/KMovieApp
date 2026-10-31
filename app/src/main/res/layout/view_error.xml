@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textAppearance="?attr/textAppearanceBodyLarge"
-        android:textColor="@color/text_color_a"
+        android:textColor="@color/text_primary"
         tools:text="@string/error_network" />
 
     <com.google.android.material.button.MaterialButton

@@ -17,6 +17,7 @@ import com.abeerapps.kmovieapp.ui.common.navigateToMovieDetails
 import com.abeerapps.kmovieapp.ui.common.render
 import com.abeerapps.kmovieapp.ui.common.setOnRetryClickListener
 import com.abeerapps.kmovieapp.ui.common.setUpPagedMovieGrid
+import com.abeerapps.kmovieapp.ui.common.showRefreshErrors
 import com.abeerapps.kmovieapp.ui.common.toPagedListState
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,6 +46,7 @@ class GenreMoviesFragment :
     private fun observeMovies() {
         collectLatestWithViewLifecycle(viewModel.movies, movieAdapter::submitData)
         collectWithViewLifecycle(movieAdapter.loadStateFlow, ::render)
+        showRefreshErrors(movieAdapter)
     }
 
     private fun render(loadStates: CombinedLoadStates) = with(binding) {

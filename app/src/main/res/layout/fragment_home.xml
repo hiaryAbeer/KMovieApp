@@ -10,7 +10,7 @@
         android:id="@+id/headerBackground"
         android:layout_width="0dp"
         android:layout_height="237dp"
-        android:background="@drawable/circle_image"
+        android:background="@drawable/bg_home_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -94,9 +94,9 @@
         app:tabIndicatorColor="@color/brand_yellow"
         app:tabIndicatorFullWidth="false"
         app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/text_color_a"
+        app:tabSelectedTextColor="@color/text_primary"
         app:tabTextAppearance="@style/TextAppearance.KMovie.Tab"
-        app:tabTextColor="@color/text_color_b" />
+        app:tabTextColor="@color/text_tab_inactive" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/genrePager"

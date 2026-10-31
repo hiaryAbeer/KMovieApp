@@ -5,20 +5,19 @@ import androidx.core.content.edit
 import com.abeerapps.kmovieapp.domain.model.ThemeMode
 import com.abeerapps.kmovieapp.domain.repository.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Uses SharedPreferences rather than DataStore: the theme has to be known synchronously at
  * startup, before the first frame, or the app would flash the wrong theme.
  */
 @Singleton
-class SettingsRepositoryImpl @Inject constructor(
-    @ApplicationContext context: Context,
-) : SettingsRepository {
+class SettingsRepositoryImpl @Inject constructor(@ApplicationContext context: Context) :
+    SettingsRepository {
 
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
@@ -30,10 +29,9 @@ class SettingsRepositoryImpl @Inject constructor(
         _themeMode.value = mode
     }
 
-    private fun readThemeMode(): ThemeMode =
-        prefs.getString(KEY_THEME_MODE, null)
-            ?.let { name -> ThemeMode.entries.firstOrNull { it.name == name } }
-            ?: ThemeMode.SYSTEM
+    private fun readThemeMode(): ThemeMode = prefs.getString(KEY_THEME_MODE, null)
+        ?.let { name -> ThemeMode.entries.firstOrNull { it.name == name } }
+        ?: ThemeMode.SYSTEM
 
     private companion object {
         const val PREFS_NAME = "settings"

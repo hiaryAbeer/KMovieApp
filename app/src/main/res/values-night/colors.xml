@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="text_color_a">#ECEDF3</color>
-    <color name="text_color_b">#80ECEDF3</color>
-    <color name="raw_text_color">#F2F2F7</color>
+    <color name="text_primary">#ECEDF3</color>
+    <color name="text_tab_inactive">#80ECEDF3</color>
+    <color name="text_title">#F2F2F7</color>
     <color name="text_secondary">#A3A3AD</color>
     <color name="surface">#121218</color>
     <color name="placeholder">#262630</color>
     <color name="badge_background">#3B3E52</color>
-    <color name="floating_button_bg">#CC262630</color>
+    <color name="floating_button_background">#CC262630</color>
 </resources>

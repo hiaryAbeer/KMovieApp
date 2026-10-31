@@ -12,14 +12,14 @@ import com.abeerapps.kmovieapp.domain.model.Movie
 import com.abeerapps.kmovieapp.domain.model.Outcome
 import com.abeerapps.kmovieapp.domain.model.Session
 import com.abeerapps.kmovieapp.domain.repository.FavoritesRepository
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class FavoritesRepositoryImpl @Inject constructor(
@@ -54,7 +54,11 @@ class FavoritesRepositoryImpl @Inject constructor(
             api.setFavorite(
                 accountId = session.accountId,
                 sessionId = session.sessionId,
-                body = FavoriteRequestDto(mediaType = "movie", mediaId = movieId, favorite = favorite),
+                body = FavoriteRequestDto(
+                    mediaType = "movie",
+                    mediaId = movieId,
+                    favorite = favorite,
+                ),
             )
             changes.value++
         }
@@ -63,7 +67,11 @@ class FavoritesRepositoryImpl @Inject constructor(
     private suspend fun <T> withSession(block: suspend (Session) -> T): Outcome<T> {
         val session = sessionStore.current() ?: return Outcome.Failure(DataError.UNAUTHORIZED)
         val result = safeApiCall { block(session) }
-        if (result is Outcome.Failure && result.error == DataError.UNAUTHORIZED) sessionStore.clear()
+        if (result is Outcome.Failure &&
+            result.error == DataError.UNAUTHORIZED
+        ) {
+            sessionStore.clear()
+        }
         return result
     }
 }

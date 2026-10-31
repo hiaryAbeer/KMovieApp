@@ -10,13 +10,14 @@ import com.abeerapps.kmovieapp.ui.common.MovieDiffCallback
 import com.abeerapps.kmovieapp.ui.common.TmdbImageSize
 import com.abeerapps.kmovieapp.ui.common.loadTmdbImage
 
-class TrendingAdapter(
-    private val onMovieClick: (Movie) -> Unit,
-) : ListAdapter<Movie, TrendingAdapter.ViewHolder>(MovieDiffCallback) {
+class TrendingAdapter(private val onMovieClick: (Movie) -> Unit) :
+    ListAdapter<Movie, TrendingAdapter.ViewHolder>(MovieDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemTrendingMovieBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false,
+            LayoutInflater.from(parent.context),
+            parent,
+            false,
         )
         return ViewHolder(binding)
     }
@@ -25,9 +26,8 @@ class TrendingAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(
-        private val binding: ItemTrendingMovieBinding,
-    ) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemTrendingMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {

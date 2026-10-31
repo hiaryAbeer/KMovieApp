@@ -9,10 +9,8 @@ import com.abeerapps.kmovieapp.domain.model.Genre
 import com.abeerapps.kmovieapp.ui.genre.GenreMoviesFragment
 
 /** One page per genre. Item ids are genre ids, so pages survive list updates. */
-class GenrePagerAdapter(
-    fragmentManager: FragmentManager,
-    lifecycle: Lifecycle,
-) : FragmentStateAdapter(fragmentManager, lifecycle) {
+class GenrePagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+    FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private var genres: List<Genre> = emptyList()
 

@@ -7,11 +7,11 @@ import com.abeerapps.kmovieapp.data.remote.dto.MovieDto
 import com.abeerapps.kmovieapp.data.remote.dto.MoviesPageDto
 import com.abeerapps.kmovieapp.domain.model.DataError
 import com.abeerapps.kmovieapp.domain.model.DataErrorException
+import java.io.IOException
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.io.IOException
 
 class TmdbPagingSourceTest {
 
@@ -40,7 +40,13 @@ class TmdbPagingSourceTest {
 
     @Test
     fun `stops at TMDB's 500 page limit`() = runTest {
-        val pager = TestPager(TmdbPagingSource.pagingConfig, TmdbPagingSource { page(it, 1_000, it.toLong()) })
+        val pager =
+            TestPager(
+                TmdbPagingSource.pagingConfig,
+                TmdbPagingSource {
+                    page(it, 1_000, it.toLong())
+                },
+            )
 
         val result = pager.refresh(initialKey = 500) as PagingSource.LoadResult.Page
 
@@ -49,7 +55,8 @@ class TmdbPagingSourceTest {
 
     @Test
     fun `removes movies repeated within a page`() = runTest {
-        val pager = TestPager(TmdbPagingSource.pagingConfig, TmdbPagingSource { page(it, 1, 7, 7, 8) })
+        val pager =
+            TestPager(TmdbPagingSource.pagingConfig, TmdbPagingSource { page(it, 1, 7, 7, 8) })
 
         val result = pager.refresh() as PagingSource.LoadResult.Page
 
@@ -58,7 +65,8 @@ class TmdbPagingSourceTest {
 
     @Test
     fun `network failure becomes a NETWORK error`() = runTest {
-        val pager = TestPager(TmdbPagingSource.pagingConfig, TmdbPagingSource { throw IOException() })
+        val pager =
+            TestPager(TmdbPagingSource.pagingConfig, TmdbPagingSource { throw IOException() })
 
         val result = pager.refresh() as PagingSource.LoadResult.Error
 

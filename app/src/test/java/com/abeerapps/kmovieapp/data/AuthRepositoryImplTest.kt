@@ -49,7 +49,8 @@ class AuthRepositoryImplTest {
     @Test
     fun `redirect with the issued token creates and stores a session`() = runTest {
         coEvery { sessionStore.consumePendingRequestToken() } returns "issued"
-        coEvery { api.createSession(CreateSessionRequestDto("issued")) } returns SessionDto("session")
+        coEvery { api.createSession(CreateSessionRequestDto("issued")) } returns
+            SessionDto("session")
         coEvery { api.getAccount("session") } returns AccountDto(id = 7L, username = "abeer")
         coEvery { sessionStore.save(any()) } just runs
 
@@ -76,7 +77,8 @@ class AuthRepositoryImplTest {
         coEvery {
             api.validateWithLogin(ValidateWithLoginRequestDto("abeer", "secret", "fresh"))
         } returns RequestTokenDto("fresh")
-        coEvery { api.createSession(CreateSessionRequestDto("fresh")) } returns SessionDto("session")
+        coEvery { api.createSession(CreateSessionRequestDto("fresh")) } returns
+            SessionDto("session")
         coEvery { api.getAccount("session") } returns AccountDto(id = 7L, username = "abeer")
 
         val result = repository.signInWithCredentials("abeer", "secret")

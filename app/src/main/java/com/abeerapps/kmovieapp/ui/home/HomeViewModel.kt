@@ -6,6 +6,7 @@ import com.abeerapps.kmovieapp.domain.model.Outcome
 import com.abeerapps.kmovieapp.domain.usecase.GetGenresUseCase
 import com.abeerapps.kmovieapp.domain.usecase.GetTrendingMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -44,6 +44,7 @@ class HomeViewModel @Inject constructor(
                 when (val genresResult = genres.await()) {
                     // Genres drive the tabs, so without them there is no usable screen.
                     is Outcome.Failure -> state.copy(isLoading = false, error = genresResult.error)
+
                     is Outcome.Success -> state.copy(
                         isLoading = false,
                         genres = genresResult.data,

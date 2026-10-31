@@ -5,8 +5,8 @@ import com.abeerapps.kmovieapp.domain.model.ThemeMode
 import com.abeerapps.kmovieapp.domain.usecase.ObserveThemeModeUseCase
 import com.abeerapps.kmovieapp.domain.usecase.SetThemeModeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.StateFlow
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(

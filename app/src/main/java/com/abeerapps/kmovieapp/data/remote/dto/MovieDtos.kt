@@ -38,20 +38,13 @@ data class MovieDetailsDto(
 )
 
 @Serializable
-data class GenresResponseDto(
-    val genres: List<GenreDto> = emptyList(),
-)
+data class GenresResponseDto(val genres: List<GenreDto> = emptyList())
 
 @Serializable
-data class GenreDto(
-    val id: Int,
-    val name: String = "",
-)
+data class GenreDto(val id: Int, val name: String = "")
 
 @Serializable
-data class CreditsDto(
-    val cast: List<CastDto> = emptyList(),
-)
+data class CreditsDto(val cast: List<CastDto> = emptyList())
 
 @Serializable
 data class CastDto(
@@ -63,9 +56,7 @@ data class CastDto(
 )
 
 @Serializable
-data class VideosResponseDto(
-    val results: List<VideoDto> = emptyList(),
-)
+data class VideosResponseDto(val results: List<VideoDto> = emptyList())
 
 @Serializable
 data class VideoDto(

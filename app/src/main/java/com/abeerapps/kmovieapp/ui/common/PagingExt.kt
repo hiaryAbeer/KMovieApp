@@ -1,31 +1,32 @@
 package com.abeerapps.kmovieapp.ui.common
 
-import androidx.paging.CombinedLoadStates
+import androidx.fragment.app.Fragment
 import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abeerapps.kmovieapp.domain.model.DataError
 import com.abeerapps.kmovieapp.domain.model.DataErrorException
-
-/** What a paged screen should show while its list is empty. */
-data class PagedListState(
-    val isLoading: Boolean,
-    val error: DataError?,
-    val isEmpty: Boolean,
-)
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
 
 /**
- * Full-screen states only apply while there is nothing to show: once items are loaded,
- * refresh and append problems are reported by the pull-to-refresh spinner and the list footer.
+ * Shows a message when a refresh fails while the list still has items (e.g. pull-to-refresh
+ * offline). The full-screen error only covers empty lists, so without this the failure is silent.
  */
-fun CombinedLoadStates.toPagedListState(itemCount: Int): PagedListState {
-    val hasItems = itemCount > 0
-    return PagedListState(
-        isLoading = refresh is LoadState.Loading && !hasItems,
-        error = (refresh as? LoadState.Error)?.error?.asDataError()?.takeUnless { hasItems },
-        isEmpty = refresh is LoadState.NotLoading && !hasItems,
-    )
+fun Fragment.showRefreshErrors(adapter: PagingDataAdapter<*, *>) {
+    val refreshErrors = adapter.loadStateFlow
+        .map { loadStates ->
+            (loadStates.refresh as? LoadState.Error)?.error?.takeIf { adapter.itemCount > 0 }
+        }
+        .distinctUntilChanged()
+        .filterNotNull()
+    collectWithViewLifecycle(refreshErrors) { error ->
+        Snackbar.make(requireView(), error.asDataError().messageRes(), Snackbar.LENGTH_LONG).show()
+    }
 }
 
 fun Throwable.asDataError(): DataError = (this as? DataErrorException)?.error ?: DataError.UNKNOWN

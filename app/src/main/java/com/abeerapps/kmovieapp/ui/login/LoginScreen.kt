@@ -108,7 +108,7 @@ private fun LoginContent(
     ) {
         IconButton(onClick = onBack, modifier = Modifier.padding(8.dp)) {
             Icon(
-                painter = painterResource(R.drawable.left_arrow),
+                painter = painterResource(R.drawable.ic_arrow_back),
                 contentDescription = stringResource(R.string.cd_back),
             )
         }

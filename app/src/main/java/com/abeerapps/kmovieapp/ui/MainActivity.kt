@@ -25,14 +25,16 @@ import com.abeerapps.kmovieapp.ui.drawer.NavigationDrawerController
 import com.abeerapps.kmovieapp.ui.settings.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.util.Optional
 import javax.inject.Inject
 import kotlin.jvm.optionals.getOrNull
+import kotlinx.coroutines.launch
 
 /** Hosts navigation, the drawer, and the browser round trip of TMDB sign-in. */
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), DrawerHost {
+class MainActivity :
+    AppCompatActivity(),
+    DrawerHost {
 
     private val signInViewModel: SignInViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
@@ -99,9 +101,13 @@ class MainActivity : AppCompatActivity(), DrawerHost {
     private fun onSignInEvent(event: SignInEvent) {
         when (event) {
             is SignInEvent.OpenApprovalPage -> openApprovalPage(event.url)
+
             is SignInEvent.SignedIn -> showMessage(getString(R.string.signed_in_as, event.username))
+
             SignInEvent.SignedOut -> showMessage(getString(R.string.signed_out))
+
             SignInEvent.Cancelled -> showMessage(getString(R.string.sign_in_cancelled))
+
             is SignInEvent.Failed -> showMessage(
                 // During sign-in a 401 means TMDB didn't accept the request token.
                 if (event.error == DataError.UNAUTHORIZED) {

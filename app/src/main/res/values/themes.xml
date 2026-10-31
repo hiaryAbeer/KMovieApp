@@ -6,10 +6,10 @@
         <item name="colorOnPrimary">@color/on_brand</item>
         <item name="colorPrimaryContainer">@color/brand_yellow_light</item>
         <item name="colorOnPrimaryContainer">@color/on_brand</item>
-        <item name="colorSecondary">@color/text_color_a</item>
+        <item name="colorSecondary">@color/text_primary</item>
         <item name="colorOnSecondary">@color/surface</item>
         <item name="colorSurface">@color/surface</item>
-        <item name="colorOnSurface">@color/text_color_a</item>
+        <item name="colorOnSurface">@color/text_primary</item>
         <item name="android:colorBackground">@color/surface</item>
         <item name="android:windowBackground">@color/surface</item>
         <item name="fontFamily">@font/poppins_regular</item>
@@ -19,7 +19,7 @@
 
     <!-- Yellow text buttons are unreadable on a light dialog, so dialogs use the dark brand color. -->
     <style name="ThemeOverlay.KMovie.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="colorPrimary">@color/text_color_a</item>
+        <item name="colorPrimary">@color/text_primary</item>
     </style>
 
     <style name="TextAppearance.KMovie.Tab" parent="TextAppearance.Material3.TitleSmall">

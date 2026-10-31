@@ -11,10 +11,11 @@ import com.abeerapps.kmovieapp.domain.model.Movie
 import kotlinx.coroutines.CancellationException
 
 /** Pages through any TMDB endpoint that returns a page of movies. */
-class TmdbPagingSource(
-    private val fetchPage: suspend (page: Int) -> MoviesPageDto,
-) : PagingSource<Int, Movie>() {
+class TmdbPagingSource(private val fetchPage: suspend (page: Int) -> MoviesPageDto) :
+    PagingSource<Int, Movie>() {
 
+    // Same boundary as safeApiCall: toDataError() rethrows anything unexpected.
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val page = params.key ?: FIRST_PAGE
         return try {
