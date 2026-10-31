@@ -4,14 +4,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RequestTokenDto(
-    @SerialName("request_token") val requestToken: String,
-)
+data class RequestTokenDto(@SerialName("request_token") val requestToken: String)
 
 @Serializable
-data class CreateSessionRequestDto(
-    @SerialName("request_token") val requestToken: String,
-)
+data class CreateSessionRequestDto(@SerialName("request_token") val requestToken: String)
 
 /** Approves a request token with the user's TMDB credentials, without the website. */
 @Serializable
@@ -25,20 +21,13 @@ data class ValidateWithLoginRequestDto(
 }
 
 @Serializable
-data class SessionDto(
-    @SerialName("session_id") val sessionId: String,
-)
+data class SessionDto(@SerialName("session_id") val sessionId: String)
 
 @Serializable
-data class DeleteSessionRequestDto(
-    @SerialName("session_id") val sessionId: String,
-)
+data class DeleteSessionRequestDto(@SerialName("session_id") val sessionId: String)
 
 @Serializable
-data class AccountDto(
-    val id: Long,
-    val username: String = "",
-)
+data class AccountDto(val id: Long, val username: String = "")
 
 /** Request body for marking a movie as favorite. No defaults, so every field is serialized. */
 @Serializable
@@ -55,7 +44,4 @@ data class StatusDto(
 )
 
 @Serializable
-data class AccountStatesDto(
-    val id: Long,
-    val favorite: Boolean = false,
-)
+data class AccountStatesDto(val id: Long, val favorite: Boolean = false)

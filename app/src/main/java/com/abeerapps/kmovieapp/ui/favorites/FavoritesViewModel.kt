@@ -7,13 +7,12 @@ import androidx.paging.cachedIn
 import com.abeerapps.kmovieapp.domain.model.Movie
 import com.abeerapps.kmovieapp.domain.usecase.GetFavoriteMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 @HiltViewModel
-class FavoritesViewModel @Inject constructor(
-    getFavoriteMovies: GetFavoriteMoviesUseCase,
-) : ViewModel() {
+class FavoritesViewModel @Inject constructor(getFavoriteMovies: GetFavoriteMoviesUseCase) :
+    ViewModel() {
 
     val favorites: Flow<PagingData<Movie>> = getFavoriteMovies().cachedIn(viewModelScope)
 }

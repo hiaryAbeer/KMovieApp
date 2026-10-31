@@ -14,12 +14,10 @@ import com.abeerapps.kmovieapp.domain.model.MovieDetails
 import com.abeerapps.kmovieapp.domain.model.Outcome
 import com.abeerapps.kmovieapp.domain.model.Trailer
 import com.abeerapps.kmovieapp.domain.repository.MovieRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
-class MovieRepositoryImpl @Inject constructor(
-    private val api: TmdbApi,
-) : MovieRepository {
+class MovieRepositoryImpl @Inject constructor(private val api: TmdbApi) : MovieRepository {
 
     override suspend fun getTrendingMovies(): Outcome<List<Movie>> = safeApiCall {
         api.getTrendingMovies().results.map { it.toDomain() }

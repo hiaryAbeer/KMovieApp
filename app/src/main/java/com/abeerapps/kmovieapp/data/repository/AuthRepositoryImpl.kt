@@ -11,10 +11,10 @@ import com.abeerapps.kmovieapp.domain.model.DataError
 import com.abeerapps.kmovieapp.domain.model.Outcome
 import com.abeerapps.kmovieapp.domain.model.Session
 import com.abeerapps.kmovieapp.domain.repository.AuthRepository
-import kotlinx.coroutines.flow.Flow
-import timber.log.Timber
 import java.net.URLEncoder
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 
 class AuthRepositoryImpl @Inject constructor(
     private val api: TmdbApi,

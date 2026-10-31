@@ -1,0 +1,33 @@
+# Only overrides of detekt's default rules (buildUponDefaultConfig = true).
+
+naming:
+  FunctionNaming:
+    # Composables are PascalCase; test names are sentences in backticks.
+    ignoreAnnotated: ['Composable', 'Test']
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][A-Za-z0-9_]*'
+
+complexity:
+  LongParameterList:
+    # Stateless composables take state plus one callback per user action.
+    ignoreAnnotated: ['Composable']
+    constructorThreshold: 8
+  LongMethod:
+    ignoreAnnotated: ['Composable']
+  TooManyFunctions:
+    excludes: ['**/test/**']
+    # Small, single-purpose functions (screens) and one function per endpoint (TmdbApi)
+    # are preferred over fewer, longer ones.
+    thresholdInClasses: 15
+    thresholdInInterfaces: 20
+
+style:
+  MagicNumber:
+    excludes: ['**/test/**']
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+  MaxLineLength:
+    maxLineLength: 100
+  UnusedPrivateMember:
+    # Compose previews are only referenced by tooling.
+    ignoreAnnotated: ['Preview']

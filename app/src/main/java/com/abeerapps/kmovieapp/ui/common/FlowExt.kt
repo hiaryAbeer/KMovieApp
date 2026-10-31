@@ -20,7 +20,10 @@ fun <T> Fragment.collectWithViewLifecycle(flow: Flow<T>, action: suspend (T) -> 
     }
 }
 
-/** Like [collectWithViewLifecycle], but cancels [action] when a newer value arrives (e.g. PagingData). */
+/**
+ * Like [collectWithViewLifecycle], but cancels [action] when a newer value arrives
+ * (e.g. PagingData).
+ */
 fun <T> Fragment.collectLatestWithViewLifecycle(flow: Flow<T>, action: suspend (T) -> Unit) {
     viewLifecycleOwner.lifecycleScope.launch {
         viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

@@ -111,7 +111,8 @@ class TmdbApiTest {
 
     @Test
     fun `unreachable server maps to a network error`() = runTest {
-        // A dropped connection is retried by OkHttp, so the realistic case is a server that is gone.
+        // A dropped connection is retried by OkHttp,
+        // so the realistic case is a server that is gone.
         server.shutdown()
 
         assertEquals(Outcome.Failure(DataError.NETWORK), MovieRepositoryImpl(api).getGenres())

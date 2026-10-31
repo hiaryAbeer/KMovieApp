@@ -11,7 +11,11 @@ import androidx.core.view.updatePadding
  * Adds the system bar insets to this view's padding, on top of the padding set in XML.
  * With [includeIme], the bottom padding also grows to stay above the on-screen keyboard.
  */
-fun View.applySystemBarsPadding(top: Boolean = false, bottom: Boolean = false, includeIme: Boolean = false) {
+fun View.applySystemBarsPadding(
+    top: Boolean = false,
+    bottom: Boolean = false,
+    includeIme: Boolean = false,
+) {
     val initialTop = paddingTop
     val initialBottom = paddingBottom
     val types = WindowInsetsCompat.Type.systemBars() or

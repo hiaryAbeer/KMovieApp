@@ -103,9 +103,13 @@ class NavigationDrawerController(
     private fun onItemSelected(itemId: Int) {
         when (itemId) {
             R.id.drawerFavorites -> navigateFromHome(HomeFragmentDirections.actionHomeToFavorites())
+
             R.id.drawerTheme -> showThemePicker()
+
             R.id.drawerAbout -> navigateFromHome(HomeFragmentDirections.actionHomeToAbout())
+
             R.id.drawerSignOut -> activity.showSignOutConfirmation(signInViewModel::signOut)
+
             R.id.drawerNetworkInspector ->
                 networkInspector?.let { activity.startActivity(it.launchIntent(activity)) }
         }

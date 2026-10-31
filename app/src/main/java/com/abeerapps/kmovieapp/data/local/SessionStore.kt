@@ -10,25 +10,25 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.abeerapps.kmovieapp.domain.model.Session
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import java.io.IOException
-import javax.inject.Inject
-import javax.inject.Singleton
 
-private val Context.sessionDataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
+private val Context.sessionDataStore: DataStore<Preferences> by preferencesDataStore(
+    name = "session",
+)
 
 /**
  * Persists the TMDB session in app-private storage. The file is excluded from backups and
  * device transfers (see res/xml/data_extraction_rules.xml), because the session_id is a credential.
  */
 @Singleton
-class SessionStore @Inject constructor(
-    @ApplicationContext context: Context,
-) {
+class SessionStore @Inject constructor(@ApplicationContext context: Context) {
     private val dataStore = context.sessionDataStore
 
     val session: Flow<Session?> = dataStore.data

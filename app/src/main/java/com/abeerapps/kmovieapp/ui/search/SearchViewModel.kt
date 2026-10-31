@@ -8,6 +8,7 @@ import androidx.paging.cachedIn
 import com.abeerapps.kmovieapp.domain.model.Movie
 import com.abeerapps.kmovieapp.domain.usecase.SearchMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -34,7 +34,15 @@ class SearchViewModel @Inject constructor(
         // Clearing the field resets results immediately; typing waits for a pause.
         .debounce { if (it.isEmpty()) 0L else DEBOUNCE_MILLIS }
         .distinctUntilChanged()
-        .flatMapLatest { if (it.length < MIN_QUERY_LENGTH) flowOf(PagingData.empty()) else searchMovies(it) }
+        .flatMapLatest {
+            if (it.length <
+                MIN_QUERY_LENGTH
+            ) {
+                flowOf(PagingData.empty())
+            } else {
+                searchMovies(it)
+            }
+        }
         .cachedIn(viewModelScope)
 
     fun onQueryChange(query: String) {

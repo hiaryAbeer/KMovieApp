@@ -11,6 +11,7 @@ import com.abeerapps.kmovieapp.domain.usecase.IsFavoriteUseCase
 import com.abeerapps.kmovieapp.domain.usecase.ObserveSessionUseCase
 import com.abeerapps.kmovieapp.domain.usecase.SetFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +22,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
@@ -91,6 +91,7 @@ class MovieDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = setFavorite(movieId, favorite)) {
                 is Outcome.Success -> _favoriteState.update { it.copy(isUpdating = false) }
+
                 is Outcome.Failure -> {
                     _favoriteState.update { it.copy(isFavorite = !favorite, isUpdating = false) }
                     // The repository clears an expired session, so ask the user to sign in again.

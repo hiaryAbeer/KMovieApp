@@ -8,8 +8,8 @@ import androidx.paging.cachedIn
 import com.abeerapps.kmovieapp.domain.model.Movie
 import com.abeerapps.kmovieapp.domain.usecase.GetMoviesByGenreUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 @HiltViewModel
 class GenreMoviesViewModel @Inject constructor(

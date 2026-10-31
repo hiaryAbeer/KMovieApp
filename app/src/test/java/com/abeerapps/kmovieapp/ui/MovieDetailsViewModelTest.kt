@@ -81,7 +81,10 @@ class MovieDetailsViewModelTest {
         session.value = SESSION
 
         coVerify { favoritesRepository.setFavorite(MOVIE_ID, true) }
-        assertEquals(FavoriteUiState(isSignedIn = true, isFavorite = true), viewModel.favoriteState.value)
+        assertEquals(
+            FavoriteUiState(isSignedIn = true, isFavorite = true),
+            viewModel.favoriteState.value,
+        )
     }
 
     @Test
@@ -92,20 +95,27 @@ class MovieDetailsViewModelTest {
         viewModel.onFavoriteClick()
 
         coVerify { favoritesRepository.setFavorite(MOVIE_ID, true) }
-        assertEquals(FavoriteUiState(isSignedIn = true, isFavorite = true), viewModel.favoriteState.value)
+        assertEquals(
+            FavoriteUiState(isSignedIn = true, isFavorite = true),
+            viewModel.favoriteState.value,
+        )
     }
 
     @Test
     fun `failed toggle rolls back and reports the error`() = runTest {
         session.value = SESSION
-        coEvery { favoritesRepository.setFavorite(MOVIE_ID, true) } returns Outcome.Failure(DataError.NETWORK)
+        coEvery { favoritesRepository.setFavorite(MOVIE_ID, true) } returns
+            Outcome.Failure(DataError.NETWORK)
         val viewModel = createViewModel()
 
         viewModel.events.test {
             viewModel.onFavoriteClick()
             assertEquals(MovieDetailsEvent.ShowError(DataError.NETWORK), awaitItem())
         }
-        assertEquals(FavoriteUiState(isSignedIn = true, isFavorite = false), viewModel.favoriteState.value)
+        assertEquals(
+            FavoriteUiState(isSignedIn = true, isFavorite = false),
+            viewModel.favoriteState.value,
+        )
     }
 
     private companion object {

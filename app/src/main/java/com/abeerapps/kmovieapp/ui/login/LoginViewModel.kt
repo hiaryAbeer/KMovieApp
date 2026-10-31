@@ -6,6 +6,7 @@ import com.abeerapps.kmovieapp.domain.model.Outcome
 import com.abeerapps.kmovieapp.domain.model.Session
 import com.abeerapps.kmovieapp.domain.usecase.SignInWithCredentialsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Username/password sign-in. The password is held in memory only: it is deliberately not put

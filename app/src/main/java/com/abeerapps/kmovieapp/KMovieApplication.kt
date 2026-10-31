@@ -4,8 +4,8 @@ import android.app.Application
 import com.abeerapps.kmovieapp.domain.repository.SettingsRepository
 import com.abeerapps.kmovieapp.ui.common.applyAsNightMode
 import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 @HiltAndroidApp
 class KMovieApplication : Application() {

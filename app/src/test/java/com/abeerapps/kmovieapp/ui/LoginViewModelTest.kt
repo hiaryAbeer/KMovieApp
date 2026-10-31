@@ -58,7 +58,8 @@ class LoginViewModelTest {
 
     @Test
     fun `username is trimmed and password sent exactly as typed`() {
-        coEvery { authRepository.signInWithCredentials(any(), any()) } returns Outcome.Success(SESSION)
+        coEvery { authRepository.signInWithCredentials(any(), any()) } returns
+            Outcome.Success(SESSION)
         fillForm(username = "  abeer ", password = " pass word ")
 
         viewModel.onSubmit()

@@ -1,7 +1,6 @@
 package com.abeerapps.kmovieapp.ui.common
 
 import androidx.fragment.app.Fragment
-import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ConcatAdapter
@@ -13,26 +12,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
-
-/** What a paged screen should show while its list is empty. */
-data class PagedListState(
-    val isLoading: Boolean,
-    val error: DataError?,
-    val isEmpty: Boolean,
-)
-
-/**
- * Full-screen states only apply while there is nothing to show: once items are loaded,
- * refresh and append problems are reported by the pull-to-refresh spinner and the list footer.
- */
-fun CombinedLoadStates.toPagedListState(itemCount: Int): PagedListState {
-    val hasItems = itemCount > 0
-    return PagedListState(
-        isLoading = refresh is LoadState.Loading && !hasItems,
-        error = (refresh as? LoadState.Error)?.error?.asDataError()?.takeUnless { hasItems },
-        isEmpty = refresh is LoadState.NotLoading && !hasItems,
-    )
-}
 
 /**
  * Shows a message when a refresh fails while the list still has items (e.g. pull-to-refresh

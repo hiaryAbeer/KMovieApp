@@ -7,9 +7,7 @@ import okhttp3.Response
  * Wraps a network inspector so calls that carry credentials pass straight through,
  * keeping the user's password out of Chucker and OkHttp Profiler recordings.
  */
-class SkipSensitiveCallsInterceptor(
-    private val inspector: Interceptor,
-) : Interceptor {
+class SkipSensitiveCallsInterceptor(private val inspector: Interceptor) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val path = chain.request().url.encodedPath
