@@ -1,5 +1,6 @@
 package com.abeerapps.kmovieapp.data.remote
 
+import com.abeerapps.kmovieapp.data.remote.TmdbEndpoints.QueryParams
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -9,12 +10,8 @@ class ApiKeyInterceptor(private val apiKey: String) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val url = request.url.newBuilder()
-            .addQueryParameter(QUERY_API_KEY, apiKey)
+            .addQueryParameter(QueryParams.API_KEY, apiKey)
             .build()
         return chain.proceed(request.newBuilder().url(url).build())
-    }
-
-    companion object {
-        const val QUERY_API_KEY = "api_key"
     }
 }
