@@ -8,6 +8,7 @@ trending, explore genres, search the full catalog, and keep favorites in sync wi
 ![Min SDK](https://img.shields.io/badge/minSdk-24-3DDC84?logo=android&logoColor=white)
 ![Target SDK](https://img.shields.io/badge/targetSdk-35-3DDC84?logo=android&logoColor=white)
 ![Architecture](https://img.shields.io/badge/architecture-Clean%20%2B%20MVVM-blue)
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 
 ## Screenshots
 
@@ -139,6 +140,10 @@ If you're reviewing the code, these parts show the main decisions:
 | Compose screen inside the XML app, sharing one theme | [`LoginFragment`](app/src/main/java/com/abeerapps/kmovieapp/ui/login/LoginFragment.kt), [`KMovieTheme`](app/src/main/java/com/abeerapps/kmovieapp/ui/theme/KMovieTheme.kt) |
 | View-binding lifecycle without leaks | [`BaseFragment`](app/src/main/java/com/abeerapps/kmovieapp/ui/common/BaseFragment.kt) |
 | Debug tools that don't exist in release | [`app/src/debug`](app/src/debug/java/com/abeerapps/kmovieapp/di), [`DebugToolsModule`](app/src/main/java/com/abeerapps/kmovieapp/di/DebugToolsModule.kt) |
+
+## License
+
+Released under the [MIT License](LICENSE).
 
 ## Attribution
 
