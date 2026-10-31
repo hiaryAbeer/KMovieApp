@@ -1,5 +1,11 @@
 package com.abeerapps.kmovieapp.data.remote
 
+import com.abeerapps.kmovieapp.data.remote.TmdbEndpoints.Account
+import com.abeerapps.kmovieapp.data.remote.TmdbEndpoints.Authentication
+import com.abeerapps.kmovieapp.data.remote.TmdbEndpoints.Movies
+import com.abeerapps.kmovieapp.data.remote.TmdbEndpoints.PathParams
+import com.abeerapps.kmovieapp.data.remote.TmdbEndpoints.QueryParams
+import com.abeerapps.kmovieapp.data.remote.TmdbEndpoints.SortBy
 import com.abeerapps.kmovieapp.data.remote.dto.AccountDto
 import com.abeerapps.kmovieapp.data.remote.dto.AccountStatesDto
 import com.abeerapps.kmovieapp.data.remote.dto.CreateSessionRequestDto
@@ -21,75 +27,76 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/** TMDB v3 API. Paths and parameter names live in [TmdbEndpoints]. */
 interface TmdbApi {
 
-    @GET("trending/movie/day")
+    @GET(Movies.TRENDING)
     suspend fun getTrendingMovies(): MoviesPageDto
 
-    @GET("genre/movie/list")
+    @GET(Movies.GENRES)
     suspend fun getMovieGenres(): GenresResponseDto
 
-    @GET("discover/movie")
+    @GET(Movies.DISCOVER)
     suspend fun discoverMovies(
-        @Query("with_genres") genreId: Int,
-        @Query("page") page: Int,
+        @Query(QueryParams.WITH_GENRES) genreId: Int,
+        @Query(QueryParams.PAGE) page: Int,
     ): MoviesPageDto
 
-    @GET("search/movie")
+    @GET(Movies.SEARCH)
     suspend fun searchMovies(
-        @Query("query") query: String,
-        @Query("page") page: Int,
+        @Query(QueryParams.QUERY) query: String,
+        @Query(QueryParams.PAGE) page: Int,
     ): MoviesPageDto
 
-    @GET("movie/{movie_id}")
-    suspend fun getMovieDetails(@Path("movie_id") movieId: Long): MovieDetailsDto
+    @GET(Movies.DETAILS)
+    suspend fun getMovieDetails(@Path(PathParams.MOVIE_ID) movieId: Long): MovieDetailsDto
 
-    @GET("movie/{movie_id}/credits")
-    suspend fun getMovieCredits(@Path("movie_id") movieId: Long): CreditsDto
+    @GET(Movies.CREDITS)
+    suspend fun getMovieCredits(@Path(PathParams.MOVIE_ID) movieId: Long): CreditsDto
 
-    @GET("movie/{movie_id}/videos")
-    suspend fun getMovieVideos(@Path("movie_id") movieId: Long): VideosResponseDto
+    @GET(Movies.VIDEOS)
+    suspend fun getMovieVideos(@Path(PathParams.MOVIE_ID) movieId: Long): VideosResponseDto
 
     // region Authentication
 
-    @GET("authentication/token/new")
+    @GET(Authentication.NEW_REQUEST_TOKEN)
     suspend fun createRequestToken(): RequestTokenDto
 
-    @POST("authentication/token/validate_with_login")
+    @POST(Authentication.VALIDATE_WITH_LOGIN)
     suspend fun validateWithLogin(@Body body: ValidateWithLoginRequestDto): RequestTokenDto
 
-    @POST("authentication/session/new")
+    @POST(Authentication.NEW_SESSION)
     suspend fun createSession(@Body body: CreateSessionRequestDto): SessionDto
 
-    @HTTP(method = "DELETE", path = "authentication/session", hasBody = true)
+    @HTTP(method = "DELETE", path = Authentication.SESSION, hasBody = true)
     suspend fun deleteSession(@Body body: DeleteSessionRequestDto): StatusDto
 
-    @GET("account")
-    suspend fun getAccount(@Query("session_id") sessionId: String): AccountDto
+    @GET(Account.DETAILS)
+    suspend fun getAccount(@Query(QueryParams.SESSION_ID) sessionId: String): AccountDto
 
     // endregion
 
     // region Favorites
 
-    @GET("account/{account_id}/favorite/movies")
+    @GET(Account.FAVORITE_MOVIES)
     suspend fun getFavoriteMovies(
-        @Path("account_id") accountId: Long,
-        @Query("session_id") sessionId: String,
-        @Query("page") page: Int,
-        @Query("sort_by") sortBy: String = "created_at.desc",
+        @Path(PathParams.ACCOUNT_ID) accountId: Long,
+        @Query(QueryParams.SESSION_ID) sessionId: String,
+        @Query(QueryParams.PAGE) page: Int,
+        @Query(QueryParams.SORT_BY) sortBy: String = SortBy.NEWEST_FIRST,
     ): MoviesPageDto
 
-    @POST("account/{account_id}/favorite")
+    @POST(Account.FAVORITE)
     suspend fun setFavorite(
-        @Path("account_id") accountId: Long,
-        @Query("session_id") sessionId: String,
+        @Path(PathParams.ACCOUNT_ID) accountId: Long,
+        @Query(QueryParams.SESSION_ID) sessionId: String,
         @Body body: FavoriteRequestDto,
     ): StatusDto
 
-    @GET("movie/{movie_id}/account_states")
+    @GET(Movies.ACCOUNT_STATES)
     suspend fun getAccountStates(
-        @Path("movie_id") movieId: Long,
-        @Query("session_id") sessionId: String,
+        @Path(PathParams.MOVIE_ID) movieId: Long,
+        @Query(QueryParams.SESSION_ID) sessionId: String,
     ): AccountStatesDto
 
     // endregion
