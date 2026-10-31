@@ -12,14 +12,14 @@
             <corners android:radius="100dp" />
             <stroke
                 android:width="2dp"
-                android:color="@color/text_color_a"/>
+                android:color="@color/badge_background"/>
         </shape>
     </item>
 
     <item>
         <shape>
 
-            <solid android:color="@color/text_color_a" />
+            <solid android:color="@color/badge_background" />
 
             <corners android:radius="100dp" />
 

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.details.MovieDetailsFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/spacing_l">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/poster"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/details_header_height"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/ShapeAppearance.KMovie.DetailsHeader"
+                tools:src="@drawable/ic_placeholder" />
+
+            <FrameLayout
+                android:id="@+id/playTrailerButton"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/circle_raw"
+                android:clickable="true"
+                android:contentDescription="@string/cd_play_trailer"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/poster"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/poster"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="11dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/noun_play_654294" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/text_color_a"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/poster"
+                tools:text="How to Train Your Dragon" />
+
+            <TextView
+                android:id="@+id/tagline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                tools:text="The legend is real." />
+
+            <TextView
+                android:id="@+id/genres"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xs"
+                android:textColor="@color/text_color_a"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/tagline"
+                tools:text="Fantasy • Family • Action" />
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="@dimen/spacing_s"
+                android:background="@drawable/circle_raw_rate"
+                android:contentDescription="@string/cd_rating"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/genres"
+                tools:text="8.1" />
+
+            <TextView
+                android:id="@+id/meta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_s"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/rating"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintStart_toEndOf="@id/rating"
+                app:layout_constraintTop_toTopOf="@id/rating"
+                tools:text="2025 • 2h 05m • 1,234 votes" />
+
+            <TextView
+                android:id="@+id/overview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:lineSpacingMultiplier="1.2"
+                android:textColor="@color/text_color_a"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/rating"
+                tools:text="On the rugged isle of Berk, where Vikings and dragons have been bitter enemies for generations…" />
+
+            <TextView
+                android:id="@+id/castTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_l"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/cast"
+                android:textColor="@color/text_color_a"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/overview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/castList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_s"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/castTitle"
+                tools:listitem="@layout/item_cast" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shimmer_auto_start="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/details_header_height"
+                android:background="@drawable/bg_gray_place_holder" />
+
+            <View
+                android:layout_width="220dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:background="@color/placeholder" />
+
+            <View
+                android:layout_width="140dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/spacing_s"
+                android:background="@color/placeholder" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="@dimen/spacing_m"
+                android:background="@color/placeholder" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <include
+        android:id="@+id/errorView"
+        layout="@layout/view_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_m"
+        android:layout_marginTop="@dimen/spacing_m"
+        android:background="@drawable/circle_raw_gray"
+        android:clickable="true"
+        android:contentDescription="@string/cd_back"
+        android:focusable="true"
+        android:padding="@dimen/spacing_s"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:importantForAccessibility="no"
+            android:src="@drawable/left_arrow" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/favoriteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_m"
+        android:layout_marginEnd="@dimen/spacing_m"
+        android:background="@drawable/circle_raw_gray"
+        android:clickable="true"
+        android:contentDescription="@string/cd_add_favorite"
+        android:focusable="true"
+        android:padding="@dimen/spacing_s"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/favoriteIcon"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_favorite_border"
+            app:tint="@null" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

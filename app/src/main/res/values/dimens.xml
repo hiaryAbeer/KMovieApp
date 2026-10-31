@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="_24dp">24dp</dimen>
-    <dimen name="_16dp">16dp</dimen>
-    <dimen name="_8dp">8dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_s">8dp</dimen>
+    <dimen name="spacing_m">16dp</dimen>
+    <dimen name="spacing_l">24dp</dimen>
+    <dimen name="icon_size">24dp</dimen>
+    <dimen name="details_header_height">380dp</dimen>
 </resources>

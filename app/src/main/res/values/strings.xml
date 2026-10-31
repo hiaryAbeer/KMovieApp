@@ -1,4 +1,80 @@
 <resources>
     <string name="app_name">KMovieApp</string>
     <string name="trending">Trending</string>
+    <string name="cast">Cast</string>
+    <string name="retry">Retry</string>
+    <string name="no_overview">No overview available.</string>
+    <string name="empty_movies">No movies found in this genre.</string>
+
+    <string name="rating_format">%.1f</string>
+    <string name="runtime_format">%1$dh %2$02dm</string>
+    <plurals name="vote_count">
+        <item quantity="one">%,d vote</item>
+        <item quantity="other">%,d votes</item>
+    </plurals>
+
+    <string name="error_network">No internet connection. Check your connection and try again.</string>
+    <string name="error_server">The movie service is having trouble. Please try again later.</string>
+    <string name="error_unknown">Something went wrong. Please try again.</string>
+    <string name="error_unauthorized">Your TMDB session has expired. Please sign in again.</string>
+    <string name="error_no_app_to_open_link">No app found to play the trailer.</string>
+    <string name="error_no_browser">No browser found to sign in with TMDB.</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search movies</string>
+    <string name="search_prompt">Find any movie by its title.</string>
+    <string name="search_no_results">No movies found for “%s”.</string>
+
+    <!-- Favorites & sign-in -->
+    <string name="favorites">Favorites</string>
+    <string name="favorites_empty">No favorites yet. Tap the heart on any movie to save it here.</string>
+    <string name="favorites_signed_out">Sign in with your TMDB account to save movies and see them here, on any device.</string>
+    <string name="sign_in">Sign in with TMDB</string>
+    <string name="signed_in_as">Signed in as %s</string>
+    <string name="sign_in_cancelled">Sign-in cancelled</string>
+
+    <!-- Login (Compose) -->
+    <string name="login_title">Sign in</string>
+    <string name="login_subtitle">Use your TMDB account to save favorites and see them on any device.</string>
+    <string name="login_username">TMDB username</string>
+    <string name="login_password">Password</string>
+    <string name="login_sign_in">Sign in</string>
+    <string name="login_or">or</string>
+    <string name="login_continue_with_website">Continue with TMDB website</string>
+    <string name="login_privacy_note">Your password is sent only to TMDB and is never stored on this device.</string>
+    <string name="login_no_account">New to TMDB?</string>
+    <string name="login_create_account">Create an account</string>
+    <string name="error_wrong_credentials">Wrong username or password.</string>
+    <string name="cd_show_password">Show password</string>
+    <string name="cd_hide_password">Hide password</string>
+    <string name="sign_in_failed">TMDB didn\'t approve the sign-in. Please try again.</string>
+    <string name="sign_out">Sign out</string>
+    <string name="sign_out_title">Sign out of TMDB?</string>
+    <string name="sign_out_message">Your favorites stay saved in your TMDB account.</string>
+    <string name="signed_out">Signed out</string>
+
+    <!-- Drawer, theme & about -->
+    <string name="theme">Theme</string>
+    <string name="theme_system">System default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="about">About</string>
+    <string name="network_inspector">Network inspector</string>
+    <string name="version_format">Version %1$s (%2$d)</string>
+    <string name="signed_out_status">Not signed in</string>
+    <string name="about_description">Browse trending movies, explore genres, search the full TMDB catalog and keep your favorites in sync with your TMDB account.</string>
+    <string name="about_data_title">Data source</string>
+    <string name="tmdb_attribution">This product uses the TMDB API but is not endorsed or certified by TMDB.</string>
+    <string name="visit_tmdb">Visit themoviedb.org</string>
+    <string name="about_built_with_title">Built with</string>
+    <string name="about_built_with">Kotlin · Coroutines &amp; Flow · Hilt · Retrofit · kotlinx.serialization · Paging 3 · Navigation · DataStore · Coil · Material 3</string>
+
+    <string name="cd_open_menu">Open menu</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_play_trailer">Play trailer</string>
+    <string name="cd_movie_poster">Poster of %s</string>
+    <string name="cd_rating">Rating</string>
+    <string name="cd_search">Search</string>
+    <string name="cd_add_favorite">Add to favorites</string>
+    <string name="cd_remove_favorite">Remove from favorites</string>
 </resources>

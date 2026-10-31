@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <View
+        android:id="@+id/headerBackground"
+        android:layout_width="0dp"
+        android:layout_height="237dp"
+        android:background="@drawable/circle_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_m"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/app_name"
+        android:textColor="@color/on_brand"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/menuButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="@dimen/spacing_s"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/cd_open_menu"
+        android:src="@drawable/ic_menu"
+        app:layout_constraintBottom_toBottomOf="@id/appTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/appTitle"
+        app:tint="@color/on_brand" />
+
+
+    <ImageButton
+        android:id="@+id/searchButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/spacing_s"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/cd_search"
+        android:src="@drawable/ic_search"
+        app:layout_constraintBottom_toBottomOf="@id/appTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/appTitle"
+        app:tint="@color/on_brand" />
+
+    <TextView
+        android:id="@+id/trendingTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_l"
+        android:layout_marginTop="@dimen/spacing_l"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/trending"
+        android:textColor="@color/on_brand"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trendingList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/spacing_m"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/trendingTitle"
+        tools:listitem="@layout/item_trending_movie" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/genreTabs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_m"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/trendingList"
+        app:tabIndicatorColor="@color/brand_yellow"
+        app:tabIndicatorFullWidth="false"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/text_color_a"
+        app:tabTextAppearance="@style/TextAppearance.KMovie.Tab"
+        app:tabTextColor="@color/text_color_b" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/genrePager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genreTabs" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/trendingGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="trendingTitle,trendingList" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/contentGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="genreTabs,genrePager" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/errorView"
+        layout="@layout/view_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
