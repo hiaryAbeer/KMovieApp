@@ -42,6 +42,7 @@ purpose.
 | Debug tooling | Chucker, OkHttp Profiler (debug builds only) |
 | Testing | JUnit 4, MockK, Turbine, kotlinx-coroutines-test, Paging testing, MockWebServer |
 | Build | Gradle Kotlin DSL, version catalog, R8 with resource shrinking |
+| Quality | GitHub Actions CI, ktlint (Android Studio style), detekt, Android lint |
 
 ## Layers
 
@@ -368,6 +369,23 @@ Unit tests run on the JVM (`./gradlew testDebugUnitTest`):
 
 Test helpers: `MainDispatcherRule` (sets `Dispatchers.Main`) and builders in `testing/TestData.kt`.
 
+### Continuous integration
+
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on every push and on pull requests to
+`master`:
+
+1. Validates the Gradle wrapper (protection against a tampered `gradle-wrapper.jar`).
+2. `ktlintCheck detekt`: code style (rules in [`.editorconfig`](.editorconfig)) and static analysis
+   (overrides in [`config/detekt/detekt.yml`](config/detekt/detekt.yml)).
+3. `testDebugUnitTest`, then `lintDebug`.
+4. `assembleDebug assembleRelease`, so R8 problems surface in CI rather than on a device.
+
+Reports are uploaded when a step fails, and the debug APK is uploaded on every run. No secrets are
+required: the app builds without a TMDB key, and tests use fake data.
+
+detekt 1.23 is built with Kotlin 2.0, so the build resolves detekt's own Kotlin dependencies to 2.0.21
+while the app compiles with Kotlin 2.2.
+
 ## Design decisions and trade-offs
 
 - **`PagingData` in the domain layer.** It's a small library dependency in an otherwise pure layer,
@@ -395,4 +413,3 @@ Test helpers: `MainDispatcherRule` (sets `Dispatchers.Main`) and builders in `te
   flows are next.
 - **A single module.** Splitting into `:core:*` and `:feature:*` modules with convention plugins would
   pay off as the app grows.
-- **CI and static analysis:** GitHub Actions running build, tests, and lint, plus ktlint and detekt.

@@ -3,6 +3,7 @@
 An Android app for discovering movies, built on [TMDB](https://www.themoviedb.org). Browse what's
 trending, explore genres, search the full catalog, and keep favorites in sync with your TMDB account.
 
+[![CI](https://github.com/hiaryAbeer/KMovieApp/actions/workflows/ci.yml/badge.svg)](https://github.com/hiaryAbeer/KMovieApp/actions/workflows/ci.yml)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white)
 ![Min SDK](https://img.shields.io/badge/minSdk-24-3DDC84?logo=android&logoColor=white)
 ![Target SDK](https://img.shields.io/badge/targetSdk-35-3DDC84?logo=android&logoColor=white)
@@ -48,6 +49,7 @@ trending, explore genres, search the full catalog, and keep favorites in sync wi
 | **Images** | Coil |
 | **Testing** | JUnit, MockK, Turbine, coroutines-test, MockWebServer |
 | **Tooling** | Gradle Kotlin DSL, version catalog, R8, Chucker and OkHttp Profiler (debug only) |
+| **Quality** | GitHub Actions CI, ktlint, detekt, Android lint |
 
 ## Architecture
 
@@ -105,12 +107,19 @@ flows, paging, error handling, security decisions, and trade-offs.
 In debug builds, open the drawer and tap **Network inspector** to see every API call in Chucker. The
 call that carries the password is never recorded.
 
-## Testing
+## Testing and code quality
 
 ```bash
-./gradlew testDebugUnitTest   # unit tests
-./gradlew lintDebug           # Android lint
+./gradlew testDebugUnitTest      # unit tests
+./gradlew ktlintCheck detekt     # code style and static analysis
+./gradlew ktlintFormat           # auto-fix code style
+./gradlew lintDebug              # Android lint
 ```
+
+[GitHub Actions](.github/workflows/ci.yml) runs all of these, then builds the debug and minified
+release APKs, on every push and pull request. Each run uploads the debug APK, so you can install the app
+without building it; open the latest run under the **Actions** tab and download
+`kmovieapp-debug-apk`.
 
 The tests cover ViewModels, use cases, mappers, and paging, plus the real Retrofit/OkHttp/serialization
 stack run against MockWebServer with real TMDB responses. Security behavior is tested too, for example
