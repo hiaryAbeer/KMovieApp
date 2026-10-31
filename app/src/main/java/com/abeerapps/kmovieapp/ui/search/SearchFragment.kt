@@ -21,6 +21,7 @@ import com.abeerapps.kmovieapp.ui.common.navigateToMovieDetails
 import com.abeerapps.kmovieapp.ui.common.render
 import com.abeerapps.kmovieapp.ui.common.setOnRetryClickListener
 import com.abeerapps.kmovieapp.ui.common.setUpPagedMovieGrid
+import com.abeerapps.kmovieapp.ui.common.showRefreshErrors
 import com.abeerapps.kmovieapp.ui.common.toPagedListState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
@@ -64,6 +65,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun observeResults() {
         collectLatestWithViewLifecycle(viewModel.results, movieAdapter::submitData)
+        showRefreshErrors(movieAdapter)
         val queryAndLoadStates = viewModel.query.combine(movieAdapter.loadStateFlow, ::Pair)
         collectWithViewLifecycle(queryAndLoadStates) { (query, loadStates) ->
             render(query, loadStates)
